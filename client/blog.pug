@@ -1,0 +1,19 @@
+extends layout.pug
+
+block content
+  .blog
+    h1 #{title}
+
+  .posts.columns
+    each post in posts
+      .column.col-4.col-xs-12
+        .post.card
+          if post.image
+            .card-image
+              img.img-responsive(src="/images/posts/" + post.image)
+          .card-header
+            a(href=`posts/${post._id}`)
+              h4.card-title= post.title
+            span.card-subtitle= new Date(post.date)
+          .card-body
+            p= post.content

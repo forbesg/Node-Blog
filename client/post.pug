@@ -1,0 +1,17 @@
+extends layout.pug
+
+block feature
+  if post.image
+    .feature(style='background-image: url(/images/posts/' + post.image +' )')
+      .container.grid-960
+        .feature-text
+          img(src="/logo.png")
+          h1 #{post.title}
+
+block content
+  .main.post
+    h1 #{post.title}
+    if post.image
+      img(src=`/images/posts/${post.image}`)
+    span #{post.date}
+    p #{post.content}

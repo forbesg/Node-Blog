@@ -1,0 +1,11 @@
+extends layout.pug
+
+block content
+  .main
+    h1 #{title}
+    p #{body}
+    if admin
+      include partials/admin.pug
+
+block footer
+  script(src="js/script.js")
