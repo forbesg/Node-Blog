@@ -1,0 +1,33 @@
+.admin.edit
+  .columns
+    .form.column.col-6.centered.col-sm-12
+      h4.text-center Add A New Post
+      form.form-horizontal(action="/api/posts" method="POST" enctype="multipart/form-data")
+        .form-group
+          .col-3
+            label.form-label(for="title") Post Title:
+          .col-9
+            input.form-input(type="text" name="title" value=post.title placeholder="Post Title" required)
+        .form-group
+          .col-3
+            label.form-label(for="date") Post Date:
+          .col-9
+            input.form-input(type="date" name="date" value=post.date placeholder="Post Date" required)
+        .form-group
+          .col-3
+            label.form-label(for="content") Post Content:
+          .col-9
+            textarea.form-input(type="textarea" name="content" placeholder="Post Content" rows="6" required) #{post.content}
+        .form-group
+          .col-3
+            label.form-label(for="image") Post Image:
+          if post.image
+            .col-9
+              img.img-responsive(src=`/images/posts/${post.image}`)
+          if !post.image
+            .col-9
+              input.form-input(type="file" name="image" placeholder="Post Image" required)
+        .form-group
+          .col-3
+          .col-9
+            button.btn.btn-primary.float-right(type="submit") Submit

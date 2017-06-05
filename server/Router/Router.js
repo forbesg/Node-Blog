@@ -1,6 +1,7 @@
 const express = require('express');
 const Router = express.Router();
 const request = require('request');
+const port = process.env.port || 3000;
 
 Router.get('/', (req, res) => {
   res.render('index', {
@@ -23,14 +24,14 @@ Router.get('/', (req, res) => {
 
 .get('/posts', (req, res) => {
   let title = 'Blog';
-  request.get('http://localhost:3000/api/posts', (err, response, body) => {
+  request.get(`http://localhost:${port}/api/posts`, (err, response, body) => {
     if (err) return res.status(500).json({err});
     res.render('blog', {title, posts: JSON.parse(body).posts});
   })
 })
 
 .get('/posts/:postId', (req, res) => {
-  request.get(`http://localhost:3000/api/posts/${req.params.postId}`, (err, response, body) => {
+  request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
     if (err) return res.status(500).json({err});
     res.render('post', {post: JSON.parse(body).post});
   })
@@ -38,10 +39,27 @@ Router.get('/', (req, res) => {
 
 .get('/admin', (req, res) => {
   let title = 'Admin';
-  request.get(`http://localhost:3000/api/posts/`, (err, response, body) => {
-    if (err) return res.status(500).json({err})
-    console.log(body);
+  request.get(`http://localhost:${port}/api/posts/`, (err, response, body) => {
+    if (err) return res.status(500).json({err});
     res.render('page', {title, admin: true, posts: JSON.parse(body).posts});
+  });
+})
+
+.get('/admin/post/edit/:postId', (req, res) => {
+  let title = "Edit";
+  request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
+    if (err) return res.status(500).json({err})
+    console.log('Body' , body);
+    let post = JSON.parse(body).post;
+    post.date = post.date.split('T')[0];
+    res.render('page', {title, edit: true, post});
+  });
+})
+
+.get('/admin/post/delete/:postId', (req, res) => {
+  request.delete(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
+    if (err) return res.status(500).json({err})
+    res.redirect('/admin');
   });
 })
 

@@ -6,6 +6,8 @@ block content
     p #{body}
     if admin
       include partials/admin.pug
+    if edit
+      include partials/edit.pug
 
 block footer
-  script(src="js/script.js")
+  script(src="/js/script.js")

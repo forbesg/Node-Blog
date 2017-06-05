@@ -2,7 +2,7 @@
   .columns
     .form.column.col-6.centered.col-sm-12
       h4.text-center Add A New Post
-      form.form-horizontal(action="api/posts" method="POST" enctype="multipart/form-data")
+      form.form-horizontal(action="/api/posts" method="POST" enctype="multipart/form-data")
         .form-group
           .col-3
             label.form-label(for="title") Post Title:
@@ -38,11 +38,11 @@
         tbody
           each post in posts
             tr
-              td #{post.title}
-              td #{post.date}
+              td= post.title
+              td= post.date
               td.text-center
-                button.btn.btn-default
+                a.btn.btn-default(href=`admin/post/edit/${post._id}`, title="Edit")
                   i.icon.icon-edit
               td.text-center
-                button.btn.btn-default
+                a.btn.btn-default(href=`admin/post/delete/${post._id}`, title="Delete")
                   i.icon.icon-delete
