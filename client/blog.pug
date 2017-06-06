@@ -10,7 +10,7 @@ block content
         .post.card
           if post.image
             .card-image
-              img.img-responsive(src="/images/posts/" + post.image)
+              img.img-responsive(src="/images/posts/thumbs/" + post.image)
           .card-header
             a(href=`posts/${post._id}`)
               h4.card-title= post.title

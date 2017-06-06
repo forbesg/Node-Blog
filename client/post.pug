@@ -11,7 +11,10 @@ block feature
 block content
   .main.post
     h1 #{post.title}
+    span.label.label-primary.date Published on: #{post.date}
     if post.image
       img(src=`/images/posts/${post.image}`)
-    span #{post.date}
+      figure
+        img(src=`/images/posts/thumbs/${post.image}`)
+        figcaption #{post.title}
     p #{post.content}

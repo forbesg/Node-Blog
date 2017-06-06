@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const moment= require('moment');
 const fs = require('fs');
+const sharp = require('sharp');
 
 mongoose.connect('mongodb://localhost/spectre');
 let postSchema = mongoose.Schema({
@@ -21,18 +22,20 @@ let Post = mongoose.model('post', postSchema);
 const jsonParser = bodyParser.json()
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, __dirname + '/../../client/images/posts')
   },
   filename: function (req, file, cb) {
-    console.log(file.originalname);
-    cb(null, file.originalname)
+    let filename = `${Date.now()}_${file.originalname}`;
+    cb(null, filename)
   }
 });
 const upload = multer({
   storage
 });
+
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -56,7 +59,18 @@ ApiRouter.get('/posts/:postId', (req, res) => {
 
 ApiRouter.post('/posts', upload.single('image'), (req, res) => {
   let postObject = req.body;
-  postObject.image = req.file.originalname;
+  console.log(req.file);
+  postObject.image = req.file.filename;
+  console.log(postObject);
+  let imagePath = __dirname + '/../../client/images/posts/' + postObject.image;
+  let thumbPath = __dirname + '/../../client/images/posts/thumbs/' + postObject.image;
+  console.log(imagePath, thumbPath);
+  sharp(imagePath).resize(300, 200).toFile(thumbPath, function(err) {
+     if (err) {
+       throw err;
+     }
+  });
+
   let post = new Post(req.body);
   if (post) {
     post.save((err, post) => {
@@ -73,9 +87,14 @@ ApiRouter.delete('/posts/:postId', (req, res) => {
   Post.findById(req.params.postId, (err, post) => {
     if (post && post.image) {
       const imagePath = `${__dirname}/../../client/images/posts/${post.image}`;
+      const thumbPath = `${__dirname}/../../client/images/posts/thumbs/${post.image}`;
       fs.unlink(imagePath, (err) => {
         if (err) console.log(err);
         console.log('Image Deleted');
+      });
+      fs.unlink(thumbPath, (err) => {
+        if (err) console.log(err);
+        console.log('Thumbnail Deleted');
       });
     }
   }).then(() => {

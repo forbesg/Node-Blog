@@ -12,6 +12,11 @@ header .brand .logo {
 header .nav-bar {
   background-color: #90acb8;
 }
+header .nav-bar .tab-item:focus,
+a:focus {
+  box-shadow: none;
+  outline: none;
+}
 .main-container {
 
 }
