@@ -1,7 +1,7 @@
 const express = require('express');
 const Router = express.Router();
 const request = require('request');
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 
 Router.get('/', (req, res) => {
   res.render('index', {
@@ -63,8 +63,8 @@ Router.get('/', (req, res) => {
   });
 })
 
-.get('/:title', (req, res) => {
-  let title = req.params.title;
+.get('/*', (req, res) => {
+  let title = 'Page Not Found';
   res.render('page', {title});
 });
 

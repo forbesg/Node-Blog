@@ -5,6 +5,7 @@
   "main": "./server/index.js",
   "scripts": {
     "start": "node ./server/index.js",
+    "prod": "PORT=8080 node ./server/index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Forbes Gray <fnbg75@gmail.com>",
