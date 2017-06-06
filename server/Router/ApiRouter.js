@@ -51,9 +51,16 @@ ApiRouter.get('/posts', (req, res) => {
 });
 
 ApiRouter.get('/posts/:postId', (req, res) => {
-  Post.findById(req.params.postId, (err, post) => {
+  Post.find((err, posts) => {
     if (err) return res.send({err});
-    res.status(200).send({post});
+    const postId = req.params.postId;
+    let otherPosts = posts.filter(post => {
+      return post._id.toString() !== postId;
+    });
+    let post = posts.filter(p => {
+      return p._id.toString() === postId
+    })[0]
+    res.status(200).send({post, posts: otherPosts});
   });
 });
 
@@ -81,7 +88,22 @@ ApiRouter.post('/posts', upload.single('image'), (req, res) => {
     console.log('There was an error');
     res.status(500).redirect('/');
   }
-})
+});
+
+ApiRouter.post('/posts/:postId', upload.single('image'), (req, res) => {
+  console.log('Here', req.params.postId, req.body);
+  Post.update({ _id: req.params.postId }, {
+    $set: {
+      title: req.body.title,
+      date: req.body.date,
+      content: req.body.content
+    }
+  }, (err, post) => {
+    if (err) console.log(err);
+    console.log(post);
+    res.status(200).redirect('/admin');
+  });
+});
 
 ApiRouter.delete('/posts/:postId', (req, res) => {
   Post.findById(req.params.postId, (err, post) => {

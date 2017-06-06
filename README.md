@@ -2,6 +2,4 @@
 
 ## TODO
 
-* Set port in config file
-* Edit process
-* Store Files based on post date 
+* Edit process - Still to complete update image

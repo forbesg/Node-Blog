@@ -1,6 +1,12 @@
+body {
+  font-size: 16px;
+}
 header {
   background-color: #34728f;
   color: #fff;
+}
+header.fixed-nav {
+  margin-bottom: 49px;
 }
 header .brand {
   padding: 30px 0;
@@ -11,6 +17,12 @@ header .brand .logo {
 }
 header .nav-bar {
   background-color: #90acb8;
+}
+header.fixed-nav .nav-bar {
+  box-shadow: 0 1px 2px #444;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 header .nav-bar .tab-item:focus,
 a:focus {
@@ -24,6 +36,7 @@ a:focus {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
   display: flex;
   height: 400px;
 }

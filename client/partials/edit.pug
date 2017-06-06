@@ -2,7 +2,7 @@
   .columns
     .form.column.col-6.centered.col-sm-12
       h4.text-center Add A New Post
-      form.form-horizontal(action="/api/posts" method="POST" enctype="multipart/form-data")
+      form.form-horizontal(action="/api/posts/" + post._id + ""  method="POST" enctype="multipart/form-data")
         .form-group
           .col-3
             label.form-label(for="title") Post Title:
@@ -23,7 +23,7 @@
             label.form-label(for="image") Post Image:
           if post.image
             .col-9
-              img.img-responsive(src=`/images/posts/${post.image}`)
+              img.img-responsive(src=`/images/posts/thumbs/${post.image}`)
           if !post.image
             .col-9
               input.form-input(type="file" name="image" placeholder="Post Image" required)

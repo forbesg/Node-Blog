@@ -33,7 +33,8 @@ Router.get('/', (req, res) => {
 .get('/posts/:postId', (req, res) => {
   request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
     if (err) return res.status(500).json({err});
-    res.render('post', {post: JSON.parse(body).post});
+    let bodyObject = JSON.parse(body);
+    res.render('post', { post: bodyObject.post, posts: bodyObject.posts });
   })
 })
 
