@@ -34,7 +34,7 @@ Router.get('/', (req, res) => {
   request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
     if (err) return res.status(500).json({err});
     let bodyObject = JSON.parse(body);
-    res.render('post', { post: bodyObject.post, posts: bodyObject.posts });
+    res.render('post', { title: bodyObject.post.title, post: bodyObject.post, posts: bodyObject.posts });
   })
 })
 
