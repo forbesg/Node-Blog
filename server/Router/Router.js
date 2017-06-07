@@ -7,7 +7,7 @@ Router.get('/', (req, res) => {
   res.render('index', {
     title: "My Other title",
     feature: {
-      image: 'https://unsplash.it/1600/1200?image=1059'
+      image: 'https://unsplash.it/1200/900?image=1059'
     }
   });
 })
@@ -19,7 +19,13 @@ Router.get('/', (req, res) => {
     author: "Forbes Gray",
     date: Date().now
   }
-  res.render('page', {title: 'About', body: JSON.stringify(body)});
+  res.render('page', {
+    title: 'About',
+    feature: {
+      image: 'https://unsplash.it/1200/800/'
+    },
+    body: JSON.stringify(body)
+  });
 })
 
 .get('/posts', (req, res) => {
