@@ -69,14 +69,21 @@ ApiRouter.post('/posts', upload.single('image'), (req, res) => {
   console.log(req.file);
   postObject.image = req.file.filename;
   console.log(postObject);
-  let imagePath = __dirname + '/../../client/images/posts/' + postObject.image;
+  let originalImagePath = __dirname + '/../../client/images/posts/' + postObject.image;
+  let imagePath = __dirname + '/../../client/images/posts/scaled_' + postObject.image;
   let thumbPath = __dirname + '/../../client/images/posts/thumbs/' + postObject.image;
   console.log(imagePath, thumbPath);
-  sharp(imagePath).resize(300, 200).toFile(thumbPath, function(err) {
+  sharp(originalImagePath).resize(1200, 675).toFile(imagePath, function(err) {
      if (err) {
        throw err;
      }
+     sharp(imagePath).resize(300, 200).toFile(thumbPath, function(err) {
+        if (err) {
+          throw err;
+        }
+     });
   });
+
 
   let post = new Post(req.body);
   if (post) {
@@ -108,8 +115,13 @@ ApiRouter.post('/posts/:postId', upload.single('image'), (req, res) => {
 ApiRouter.delete('/posts/:postId', (req, res) => {
   Post.findById(req.params.postId, (err, post) => {
     if (post && post.image) {
-      const imagePath = `${__dirname}/../../client/images/posts/${post.image}`;
+      const originalImagePath = `${__dirname}/../../client/images/posts/${post.image}`;
+      const imagePath = `${__dirname}/../../client/images/posts/scaled_${post.image}`;
       const thumbPath = `${__dirname}/../../client/images/posts/thumbs/${post.image}`;
+      fs.unlink(originalImagePath, (err) => {
+        if (err) console.log(err);
+        console.log('Original Image Deleted');
+      });
       fs.unlink(imagePath, (err) => {
         if (err) console.log(err);
         console.log('Image Deleted');

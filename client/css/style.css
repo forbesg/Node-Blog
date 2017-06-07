@@ -17,8 +17,10 @@ header .brand .logo {
 }
 header .nav-bar {
   background-color: #90acb8;
+  transition: background-color 0.2s;
 }
 header.fixed-nav .nav-bar {
+  background-color: rgba(144, 172, 184, 0.8);
   box-shadow: 0 1px 2px #444;
   position: fixed;
   top: 0;

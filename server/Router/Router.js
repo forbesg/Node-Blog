@@ -2,6 +2,7 @@ const express = require('express');
 const Router = express.Router();
 const request = require('request');
 const port = process.env.PORT || 3000;
+const md = require('markdown').markdown;
 
 Router.get('/', (req, res) => {
   res.render('index', {
@@ -32,7 +33,7 @@ Router.get('/', (req, res) => {
   let title = 'Blog';
   request.get(`http://localhost:${port}/api/posts`, (err, response, body) => {
     if (err) return res.status(500).json({err});
-    res.render('blog', {title, posts: JSON.parse(body).posts});
+    res.render('blog', {title, posts: JSON.parse(body).posts, md});
   })
 })
 
@@ -40,7 +41,7 @@ Router.get('/', (req, res) => {
   request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
     if (err) return res.status(500).json({err});
     let bodyObject = JSON.parse(body);
-    res.render('post', { title: bodyObject.post.title, post: bodyObject.post, posts: bodyObject.posts });
+    res.render('post', { title: bodyObject.post.title, post: bodyObject.post, posts: bodyObject.posts, md });
   })
 })
 
@@ -59,7 +60,7 @@ Router.get('/', (req, res) => {
     console.log('Body' , body);
     let post = JSON.parse(body).post;
     post.date = post.date.split('T')[0];
-    res.render('page', {title, edit: true, post});
+    res.render('page', {title, edit: true, post, md});
   });
 })
 

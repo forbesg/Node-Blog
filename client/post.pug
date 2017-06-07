@@ -2,7 +2,7 @@ extends layout.pug
 
 block feature
   if post.image
-    .feature(style='background-image: url(/images/posts/' + post.image +' )')
+    .feature(style='background-image: url(/images/posts/scaled_' + post.image +' )')
       .container.grid-960
         .feature-text
           img(src="/logo.png")
@@ -14,8 +14,8 @@ block content
     .main.post.column.col-9.col-md-8.col-sm-12
       span.date Published on: #{post.date}
       if post.image
-        img(src=`/images/posts/${post.image}`)
-      p #{post.content}
+        img(src=`/images/posts/scaled_${post.image}`)
+      .post-body!= md.toHTML(post.content)
     .sidebar.column.col-3.col-md-4.col-sm-12
       h4 Other Posts
       .cards
@@ -26,7 +26,6 @@ block content
             .card-subtitle= post.date
           .card-image
             img.img-responsive(src=`/images/posts/thumbs/${post.image}`)
-          .card-body
-            p= post.content
+          .card-body!= md.toHTML(post.content)
           .card-footer
             a.btn.btn-default(href=`/posts/${post._id}`) View Post
