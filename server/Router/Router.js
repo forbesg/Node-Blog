@@ -58,7 +58,6 @@ Router.get('/', (req, res) => {
   let title = "Edit";
   request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
     if (err) return res.status(500).json({err})
-    console.log('Body' , body);
     let post = JSON.parse(body).post;
     post.date = post.date.split('T')[0];
     res.render('page', {title, edit: true, post, md});

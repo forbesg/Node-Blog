@@ -67,7 +67,7 @@ ApiRouter.get('/posts/:postId', (req, res) => {
 ApiRouter.post('/posts', upload.single('image'), (req, res) => {
   let postObject = req.body;
   postObject.image = req.file.filename;
-  postObject.summary = postObject.content.substring(0, 100);
+  postObject.summary = `${postObject.content.substring(0, 96)} ....`;
   let originalImagePath = __dirname + '/../../client/images/posts/' + postObject.image;
   let imagePath = __dirname + '/../../client/images/posts/scaled_' + postObject.image;
   let thumbPath = __dirname + '/../../client/images/posts/thumbs/' + postObject.image;
@@ -101,7 +101,7 @@ ApiRouter.post('/posts/:postId', upload.single('image'), (req, res) => {
       title: req.body.title,
       date: req.body.date,
       content: req.body.content,
-      summary: req.body.content.substring(0, 100)
+      summary: `${req.body.content.substring(0, 96)} ....`
     }
   }, (err, post) => {
     if (err) console.log(err);
