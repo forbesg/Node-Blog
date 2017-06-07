@@ -62,11 +62,20 @@ a:focus {
 .post.card h2 {
   font-size: 2rem;
 }
-.post img {
+.post .post-image {
+  margin: 1rem -1rem;
+}
+.post .post-image img {
   width: 100%;
 }
 i.icon {
   cursor: pointer;
+}
+.card h2 {
+  font-size: 2rem;
+}
+.card .card-image img {
+  width: 100%;
 }
 
 footer {
@@ -78,11 +87,14 @@ footer .copy {
   text-align: center;
 }
 
-@media(min-width: 768px) {
+@media(min-width: 601px) {
   header .brand {
     /*text-align: left;*/
   }
   .feature {
     background-attachment: fixed;
+  }
+  .post .post-image {
+    margin: 1rem auto;
   }
 }
