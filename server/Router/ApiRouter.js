@@ -3,9 +3,7 @@ const ApiRouter = express.Router();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const multer = require('multer');
-const moment= require('moment');
-const fs = require('fs');
-const sharp = require('sharp');
+const image = require('../helpers/images');
 
 mongoose.connect('mongodb://localhost/spectre');
 let postSchema = mongoose.Schema({
@@ -68,19 +66,8 @@ ApiRouter.post('/posts', upload.single('image'), (req, res) => {
   let postObject = req.body;
   postObject.image = req.file.filename;
   postObject.summary = `${postObject.content.substring(0, 96)} ....`;
-  let originalImagePath = __dirname + '/../../client/images/posts/' + postObject.image;
-  let imagePath = __dirname + '/../../client/images/posts/scaled_' + postObject.image;
-  let thumbPath = __dirname + '/../../client/images/posts/thumbs/' + postObject.image;
-  sharp(originalImagePath).resize(1200, 675).toFile(imagePath, function(err) {
-     if (err) {
-       throw err;
-     }
-     sharp(imagePath).resize(300, 200).toFile(thumbPath, function(err) {
-        if (err) {
-          throw err;
-        }
-     });
-  });
+
+  image.resize(postObject.image);
 
   let post = new Post(postObject);
 
@@ -112,21 +99,7 @@ ApiRouter.post('/posts/:postId', upload.single('image'), (req, res) => {
 ApiRouter.delete('/posts/:postId', (req, res) => {
   Post.findById(req.params.postId, (err, post) => {
     if (post && post.image) {
-      const originalImagePath = `${__dirname}/../../client/images/posts/${post.image}`;
-      const imagePath = `${__dirname}/../../client/images/posts/scaled_${post.image}`;
-      const thumbPath = `${__dirname}/../../client/images/posts/thumbs/${post.image}`;
-      fs.unlink(originalImagePath, (err) => {
-        if (err) console.log(err);
-        console.log('Original Image Deleted');
-      });
-      fs.unlink(imagePath, (err) => {
-        if (err) console.log(err);
-        console.log('Image Deleted');
-      });
-      fs.unlink(thumbPath, (err) => {
-        if (err) console.log(err);
-        console.log('Thumbnail Deleted');
-      });
+      image.delete(post.image);
     }
   }).then(() => {
     Post.findById(req.params.postId).remove((err) => {
