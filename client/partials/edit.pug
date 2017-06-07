@@ -1,6 +1,6 @@
 .admin.edit
   .columns
-    .form.column.col-6.centered.col-sm-12
+    .form.column.col-9.centered.col-sm-12
       h4.text-center Add A New Post
       form.form-horizontal(action="/api/posts/" + post._id + ""  method="POST" enctype="multipart/form-data")
         .form-group
@@ -30,4 +30,5 @@
         .form-group
           .col-3
           .col-9
-            button.btn.btn-primary.float-right(type="submit") Submit
+            a.btn.btn-default(href="/admin") Cancel
+            button.btn.btn-primary.float-right(type="submit") Update

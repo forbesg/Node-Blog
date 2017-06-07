@@ -15,4 +15,4 @@ block content
             a(href=`posts/${post._id}`)
               h4.card-title= post.title
             span.card-subtitle= post.date
-          .card-body!= md.toHTML(post.content)
+          .card-body!= md.toHTML(post.summary)

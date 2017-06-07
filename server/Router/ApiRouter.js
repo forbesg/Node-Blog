@@ -13,6 +13,7 @@ let postSchema = mongoose.Schema({
   slug: String,
   date: String,
   content: String,
+  summary: String,
   image: String
 });
 
@@ -44,15 +45,16 @@ db.once('open', function() {
 });
 
 ApiRouter.get('/posts', (req, res) => {
-  Post.find((err, posts) => {
+  Post.find().sort( {date: -1} ).exec( (err, posts) => {
     if (err) return res.send({err});
+    console.log(posts)
     res.status(200).send({posts});
   });
 });
 
 ApiRouter.get('/posts/:postId', (req, res) => {
   Post.find((err, posts) => {
-    if (err) return res.send({err});
+    if (err || posts.length < 1) return res.send({err});
     const postId = req.params.postId;
     let otherPosts = posts.filter(post => {
       return post._id.toString() !== postId;
@@ -68,6 +70,7 @@ ApiRouter.post('/posts', upload.single('image'), (req, res) => {
   let postObject = req.body;
   console.log(req.file);
   postObject.image = req.file.filename;
+  postObject.summary = postObject.content.substring(0, 100);
   console.log(postObject);
   let originalImagePath = __dirname + '/../../client/images/posts/' + postObject.image;
   let imagePath = __dirname + '/../../client/images/posts/scaled_' + postObject.image;
@@ -84,16 +87,16 @@ ApiRouter.post('/posts', upload.single('image'), (req, res) => {
      });
   });
 
+  let post = new Post(postObject);
 
-  let post = new Post(req.body);
   if (post) {
     post.save((err, post) => {
       if (err) return res.send({err});
-      return res.status(200).redirect('/');
+      return res.status(200).redirect('/posts');
     })
   } else {
     console.log('There was an error');
-    res.status(500).redirect('/');
+    res.status(500).redirect('/posts');
   }
 });
 
@@ -103,7 +106,8 @@ ApiRouter.post('/posts/:postId', upload.single('image'), (req, res) => {
     $set: {
       title: req.body.title,
       date: req.body.date,
-      content: req.body.content
+      content: req.body.content,
+      summary: req.body.content.substring(0, 100)
     }
   }, (err, post) => {
     if (err) console.log(err);

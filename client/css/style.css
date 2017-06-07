@@ -60,7 +60,9 @@ a:focus {
   padding-top: 50px;
   padding-bottom: 50px;
 }
-
+.post.card h2 {
+  font-size: 2rem;
+}
 .post img {
   width: 100%;
 }
