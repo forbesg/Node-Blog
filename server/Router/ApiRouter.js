@@ -47,35 +47,30 @@ db.once('open', function() {
 ApiRouter.get('/posts', (req, res) => {
   Post.find().sort( {date: -1} ).exec( (err, posts) => {
     if (err) return res.send({err});
-    console.log(posts)
     res.status(200).send({posts});
   });
 });
 
 ApiRouter.get('/posts/:postId', (req, res) => {
-  Post.find((err, posts) => {
-    if (err || posts.length < 1) return res.send({err});
+  Post.find().sort({date: -1}).limit(5).exec((err, posts) => {
+    if (err) return res.send({err: err});
     const postId = req.params.postId;
     let otherPosts = posts.filter(post => {
       return post._id.toString() !== postId;
     });
-    let post = posts.filter(p => {
-      return p._id.toString() === postId
-    })[0]
-    res.status(200).send({post, posts: otherPosts});
+    Post.findOne({ _id: req.params.postId }, (err, post) => {
+      res.status(200).send({post, posts: otherPosts});
+    });
   });
 });
 
 ApiRouter.post('/posts', upload.single('image'), (req, res) => {
   let postObject = req.body;
-  console.log(req.file);
   postObject.image = req.file.filename;
   postObject.summary = postObject.content.substring(0, 100);
-  console.log(postObject);
   let originalImagePath = __dirname + '/../../client/images/posts/' + postObject.image;
   let imagePath = __dirname + '/../../client/images/posts/scaled_' + postObject.image;
   let thumbPath = __dirname + '/../../client/images/posts/thumbs/' + postObject.image;
-  console.log(imagePath, thumbPath);
   sharp(originalImagePath).resize(1200, 675).toFile(imagePath, function(err) {
      if (err) {
        throw err;
@@ -101,7 +96,6 @@ ApiRouter.post('/posts', upload.single('image'), (req, res) => {
 });
 
 ApiRouter.post('/posts/:postId', upload.single('image'), (req, res) => {
-  console.log('Here', req.params.postId, req.body);
   Post.update({ _id: req.params.postId }, {
     $set: {
       title: req.body.title,
@@ -111,7 +105,6 @@ ApiRouter.post('/posts/:postId', upload.single('image'), (req, res) => {
     }
   }, (err, post) => {
     if (err) console.log(err);
-    console.log(post);
     res.status(200).redirect('/admin');
   });
 });
