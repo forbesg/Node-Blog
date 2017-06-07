@@ -1,12 +1,7 @@
 extends layout.pug
 
 block feature
-  if feature
-    .feature(style="background-image: url(" + feature.image + ")")
-      .container.grid-960
-        .feature-text
-          img(src="/logo.png")
-          h1 #{title}
+  include partials/feature.pug
 
 block content
   h1  Home Page
