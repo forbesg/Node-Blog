@@ -1,33 +1,6 @@
 .admin
   .columns
-    .form.column.col-6.centered.col-sm-12
-      h4.text-center Add A New Post
-      form.form-horizontal(action="/api/posts" method="POST" enctype="multipart/form-data")
-        .form-group
-          .col-3
-            label.form-label(for="title") Post Title:
-          .col-9
-            input.form-input(type="text" name="title" placeholder="Post Title" required)
-        .form-group
-          .col-3
-            label.form-label(for="date") Post Date:
-          .col-9
-            input.form-input(type="date" name="date" placeholder="Post Date" required)
-        .form-group
-          .col-3
-            label.form-label(for="content") Post Content:
-          .col-9
-            textarea.form-input(type="textarea" name="content" placeholder="Post Content" rows="6" required)
-        .form-group
-          .col-3
-            label.form-label(for="image") Post Image:
-          .col-9
-            input.form-input(type="file" name="image" placeholder="Post Image" required)
-        .form-group
-          .col-3
-          .col-9
-            button.btn.btn-primary.float-right(type="submit") Submit
-    .posts.column.col-6.centered.col-sm-12
+    .posts.column.col-9.col-sm-12
       h4 Posts
       table.table.table-striped.table-hover
         thead
@@ -47,3 +20,10 @@
               td.text-center
                 a.btn.btn-default(href=`admin/post/delete/${post._id}`, title="Delete")
                   i.icon.icon-delete
+    nav.column.col-2.centered.col-sm-12
+      .admin-nav
+        h4 What would you like to do?
+        a.btn.btn-default(href="/admin/post/add")
+          span
+            i.icon.icon-plus
+          span(style="padding-left: 10px;") Add Post

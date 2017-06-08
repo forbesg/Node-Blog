@@ -9,4 +9,10 @@
     }
     header.classList.remove('fixed-nav');
   }
+  window.onkeydown = (e) => {
+    if (e.keyCode === 83 && e.ctrlKey) {
+        e.preventDefault();
+        console.log('Save?');
+    }
+  }
 })();

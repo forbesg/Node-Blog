@@ -18,15 +18,18 @@
             label.form-label(for="content") Post Content:
           .col-9
             textarea.form-input(type="textarea" name="content" placeholder="Post Content" rows="6" required)= post.content
+        if post.image
+          .form-group
+            .col-3
+              label.form-label(for="image") Current Image:
+            .col-9
+              img.img-responsive(src=`/images/posts/thumbs/${post.image}` style="margin: 0 10px 10px 0;")
+              input.form-input.hide(type="text" name="currentImage" value=`${post.image}` placeholder="Current Image")
         .form-group
           .col-3
             label.form-label(for="image") Post Image:
-          if post.image
-            .col-9
-              img.img-responsive(src=`/images/posts/thumbs/${post.image}`)
-          if !post.image
-            .col-9
-              input.form-input(type="file" name="image" placeholder="Post Image" required)
+          .col-9
+            input.form-input(type="file" name="image" placeholder="Post Image")
         .form-group
           .col-3
           .col-9
