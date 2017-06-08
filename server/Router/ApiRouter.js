@@ -83,13 +83,21 @@ ApiRouter.post('/posts', upload.single('image'), (req, res) => {
 });
 
 ApiRouter.post('/posts/:postId', upload.single('image'), (req, res) => {
-  Post.update({ _id: req.params.postId }, {
-    $set: {
-      title: req.body.title,
-      date: req.body.date,
-      content: req.body.content,
-      summary: `${req.body.content.substring(0, 96)} ....`
+  let updatePost = {
+    title: req.body.title,
+    date: req.body.date,
+    content: req.body.content,
+    summary: `${req.body.content.substring(0, 96)} ....`
+  }
+  if (req.file) {
+    updatePost.image = req.file.filename;
+    image.resize(updatePost.image);
+    if (req.body.currentImage) {
+      image.delete(req.body.currentImage);
     }
+  }
+  Post.update({ _id: req.params.postId }, {
+    $set: updatePost
   }, (err, post) => {
     if (err) console.log(err);
     res.status(200).redirect('/admin');

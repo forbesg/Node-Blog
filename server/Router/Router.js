@@ -54,6 +54,11 @@ Router.get('/', (req, res) => {
   });
 })
 
+.get('/admin/post/add', (req, res) => {
+  let title = "Add";
+  res.render('page', {title, add: true, md});
+})
+
 .get('/admin/post/edit/:postId', (req, res) => {
   let title = "Edit";
   request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
