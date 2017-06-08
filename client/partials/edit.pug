@@ -12,7 +12,7 @@
           .col-3
             label.form-label(for="date") Post Date:
           .col-9
-            input.form-input(type="date" name="date" value=post.date placeholder="Post Date" required)
+            input.form-input(type="date" name="date" value=post.date placeholder="YYYY-MM-DD" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}")
         .form-group
           .col-3
             label.form-label(for="content") Post Content:

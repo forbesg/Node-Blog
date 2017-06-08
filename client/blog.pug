@@ -16,3 +16,5 @@ block content
               h4.card-title= post.title
             span.card-subtitle= post.date
           .card-body!= md.toHTML(post.summary)
+          .card-footer
+            a.btn(href=`posts/${post._id}`) View

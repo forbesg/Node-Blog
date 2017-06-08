@@ -77,8 +77,17 @@ a:focus {
   padding-top: 50px;
   padding-bottom: 50px;
 }
-.post.card h2 {
+.post.card h4 {
   font-size: 2rem;
+}
+.post.card a h4 {
+  color: #34728f;
+}
+.post.card a:hover {
+  text-decoration: none;
+}
+.post.card a:hover h4 {
+  color: #07222e;
 }
 .post .post-image {
   margin: 1rem -1rem;
@@ -110,6 +119,10 @@ i.icon {
   background-color: rgba(68, 68, 68, 0.8);
   color: #fff;
 }
+.admin textarea.form-input {
+  font-size: 1.6rem;
+  min-height: 500px;
+}
 
 
 footer {
@@ -131,4 +144,31 @@ footer .copy {
   .post .post-image {
     margin: 1rem auto;
   }
+}
+
+/**
+  Spectre Overrides
+**/
+.btn {
+  background: #fff;
+  border-color: #34728f;
+  color: #34728f;
+}
+.btn:hover {
+  background: #34728f;
+  border-color: #34728f;
+  color: #fff;
+}
+.btn.btn-primary {
+  background: #34728f;
+  border-color: #34728f;
+  color: #fff;
+}
+.btn.btn-primary:focus, .btn.btn-primary:hover {
+  background: #245268;
+  border-color: #245268;
+  color: #fff;
+}
+.tab .tab-item a:focus, .tab .tab-item a:hover {
+    color: #48536f;
 }
