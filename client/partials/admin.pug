@@ -18,7 +18,7 @@
                 a.btn.btn-default(href=`admin/post/edit/${post._id}`, title="Edit")
                   i.icon.icon-edit
               td.text-center
-                a.btn.btn-default(href=`admin/post/delete/${post._id}`, title="Delete")
+                a.btn.btn-default.delete(href=`admin/post/delete/${post._id}`, title="Delete")
                   i.icon.icon-delete
     nav.column.col-2.centered.col-sm-12
       .admin-nav
@@ -27,3 +27,51 @@
           span
             i.icon.icon-plus
           span(style="padding-left: 10px;") Add Post
+  .modal.modal-sm.delete-modal
+    .modal-overlay
+    .modal-container
+      .modal-header
+        button.btn.btn-clear.float-right.close-button
+        .modal-title Confirm Delete
+      .modal-body
+        .content
+          p Are you sure you would like to delete this post?
+      .modal-footer.center
+        button.btn.btn-default.cancel-button.float-left Cancel
+        a.btn.btn-primary.delete-button Delete
+
+
+
+
+block footer
+script.
+  (function () {
+
+    function handleDeleteEvent (e) {
+      e.preventDefault();
+      let deleteModal = document.querySelector('.delete-modal'),
+          cancelButton = document.querySelector('.cancel-button'),
+          closeButton = document.querySelector('.close-button'),
+          deleteButton = document.querySelector('.delete-button');
+
+      cancelButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        deleteModal.classList.remove('active');
+      });
+      closeButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        deleteModal.classList.remove('active');
+      });
+
+      deleteButton.href = this.href;
+      deleteModal.classList.add('active');
+      console.log(this.href);
+    }
+
+    let deleteButtons = document.querySelectorAll('.delete');
+
+    for (let i = 0; i < deleteButtons.length; i += 1) {
+      deleteButtons[i].addEventListener('click', handleDeleteEvent, true)
+    }
+
+  })();
