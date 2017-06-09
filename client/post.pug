@@ -20,14 +20,14 @@ block content
       .post-body!= md.toHTML(post.content)
     .sidebar.column.col-3.col-md-4.col-sm-12
       h4 Other Posts
-      .cards
-      each post in posts
-        .card(style="margin-bottom: 30px")
-          .card-header
-            .card-title= post.title
-            .card-subtitle= post.date
-          .card-image
-            img.img-responsive(src=`/images/posts/thumbs/${post.image}`)
-          .card-body!= md.toHTML(post.summary)
-          .card-footer
-            a.btn.btn-default(href=`/posts/${post._id}`) View Post
+      .cards.columns
+        each post in posts
+          .card.column.col-12.col-sm-6.col-xs-6(style="margin-bottom: 30px")
+            .card-header
+              .card-title= post.title
+              .card-subtitle= post.date
+            .card-image
+              img.img-responsive(src=`/images/posts/thumbs/${post.image}`)
+            .card-body!= md.toHTML(post.summary)
+            .card-footer
+              a.btn.btn-default(href=`/posts/${post._id}`) View Post

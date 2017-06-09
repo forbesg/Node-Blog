@@ -1,7 +1,7 @@
 .admin
   .columns
     .posts.column.col-9.col-sm-12
-      h4 Posts
+      h4 Posts #{test}
       table.table.table-striped.table-hover
         thead
           tr
@@ -27,6 +27,7 @@
           span
             i.icon.icon-plus
           span(style="padding-left: 10px;") Add Post
+  #vue
   .modal.modal-sm.delete-modal
     .modal-overlay
     .modal-container
@@ -46,7 +47,6 @@
 block footer
 script.
   (function () {
-
     function handleDeleteEvent (e) {
       e.preventDefault();
       let deleteModal = document.querySelector('.delete-modal'),

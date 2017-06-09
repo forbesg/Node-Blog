@@ -1,6 +1,11 @@
 body {
   font-size: 16px;
 }
+hr {
+  border: none;
+  border-bottom: 1px solid #dadada;
+  margin: 30px 0;
+}
 header {
   background-color: #34728f;
   color: #fff;
@@ -128,7 +133,10 @@ i.icon {
 footer {
   background-color: #1d3c4b;
   color: #fff;
-  padding: 30px 0;
+  padding-top: 30px;
+}
+footer .column {
+  font-size: 1.2rem;
 }
 footer .copy {
   text-align: center;
