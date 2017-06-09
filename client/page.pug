@@ -5,10 +5,13 @@ block feature
 
 block content
   .main
-    h1 #{title}
+    if !admin
+      h1 #{title}
     p #{body}
     if admin
       include partials/admin.pug
+    if dashboard
+      include partials/dashboard.pug
     if edit
       include partials/edit.pug
     if add

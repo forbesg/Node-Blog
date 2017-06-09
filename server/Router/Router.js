@@ -1,8 +1,13 @@
 const express = require('express');
 const Router = express.Router();
+const bodyParser = require('body-parser');
 const request = require('request');
 const port = process.env.PORT || 3000;
 const md = require('markdown').markdown;
+
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
 
 Router.get('/', (req, res) => {
   res.render('index', {
@@ -47,10 +52,26 @@ Router.get('/', (req, res) => {
 })
 
 .get('/admin', (req, res) => {
-  let title = 'Admin';
+  let title = 'Login';
+  res.render('page', {title, admin: true});
+})
+
+.post('/admin', bodyParser.urlencoded({extended: true}), (req, res) => {
+  let title = 'Login';
+  console.log(req.body);
+  request({url: `http://localhost:${port}/api/users/`, body: req.body, json: true, method: 'post'}, (err, httpResponse, body) => {
+
+    if (err) return res.status(500).send({err});
+    res.render('page', {title, admin: true});
+  })
+
+})
+
+.get('/admin/dashboard', (req, res) => {
+  let title = "Dashboard";
   request.get(`http://localhost:${port}/api/posts/`, (err, response, body) => {
     if (err) return res.status(500).json({err});
-    res.render('page', {title, admin: true, posts: JSON.parse(body).posts});
+    res.render('page', {title, dashboard: true, posts: JSON.parse(body).posts});
   });
 })
 
