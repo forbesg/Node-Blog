@@ -53,8 +53,8 @@ ApiRouter.post('/users/register', jsonParser, (req, res) => {
     user.save(function (err) {
       if (err) {
         console.log(err);
-        return res.send(err)
-      };
+        return res.redirect('/')
+      }
       res.send(200);
     });
   } else {

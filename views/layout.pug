@@ -14,6 +14,10 @@ html
           .brand.col-sm-12.text-center
             img(src="/logo.svg").logo
             h1 My Site
+          .user
+            if user
+              p Signed in: #{user.email}
+              a.btn.btn-primary(href="/admin/logout") Logout
         .nav-bar
           .container.grid-1280
             .nav.col-12

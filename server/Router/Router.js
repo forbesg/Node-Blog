@@ -6,8 +6,12 @@ const port = process.env.PORT || 3000;
 const md = require('markdown').markdown;
 const auth = require('./auth');
 
-module.exports = (app, passport) => {
+const checkAuth = function (req, res, next) {
+  if (!req.user) return res.redirect('/');
+  next();
+}
 
+module.exports = (app, passport) => {
   app.get('/', (req, res) => {
     res.render('index', {
       title: "My Other title",
@@ -63,9 +67,7 @@ module.exports = (app, passport) => {
     res.render('page', params);
   })
 
-  .post('/admin', bodyParser.urlencoded({extended: false}), function (err, req, res, next) {
-    next()
-  }, passport.authenticate('local', {
+  .post('/admin', bodyParser.urlencoded({extended: false}), passport.authenticate('local', {
     successRedirect: '/admin/dashboard',
     failureRedirect: '/',
     // failureFlash: true
@@ -79,18 +81,27 @@ module.exports = (app, passport) => {
     }
     res.render('page', params);
   })
-  .post('/admin/register', bodyParser.urlencoded({extended: false}), (req, res) => {
+  .post('/admin/register', bodyParser.urlencoded({extended: false}), (req, res, next) => {
     console.log(req.body);
     let options = {
       method: 'post',
       body: req.body,
       json: true,
       url: `http://localhost:${port}/api/users/register`
-    }
+    };
     request(options, (err, response, body) => {
       if (err) return res.status(500).json({err});
-      res.render('page', {admin: true});
+      next();
     })
+  }, passport.authenticate('local', {
+    successRedirect: '/admin/dashboard',
+    failureRedirect: '/',
+    // failureFlash: true
+  }))
+
+  .get('/admin/logout', (req, res) => {
+    req.logout();
+    res.redirect('/admin');
   })
 
   // .post('/admin', bodyParser.urlencoded({extended: false}), function (req, res, next) {
@@ -100,11 +111,16 @@ module.exports = (app, passport) => {
   //
   // }))
 
-  .get('/admin/dashboard',  (req, res) => {
-    let title = "Dashboard";
+  .get('/admin/dashboard', checkAuth, (req, res) => {
+    let params = {
+      title: 'Dashboard',
+      user: req.user
+    };
     request.get(`http://localhost:${port}/api/posts/`, (err, response, body) => {
       if (err) return res.status(500).json({err});
-      res.render('page', {title, dashboard: true, posts: JSON.parse(body).posts});
+      console.log(response, body);
+      params.posts = JSON.parse(body).posts;
+      res.render('page', params);
     });
   })
 

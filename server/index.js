@@ -26,6 +26,7 @@ app.locals.title = 'My Title set from locals';
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/../views');
 app.use(express.static(__dirname + '/../public'));
+
 app.use('/api', ApiRouter);
 require('./Router/Router')(app, passport);
 

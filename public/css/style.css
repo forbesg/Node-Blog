@@ -20,6 +20,12 @@ header .brand {
 header .brand .logo {
   width:100px;
 }
+header .user {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1rem;
+}
 header .nav-bar {
   background-color: #90acb8;
   transition: background-color 0.2s;
