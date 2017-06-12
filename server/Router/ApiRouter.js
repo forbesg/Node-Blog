@@ -28,7 +28,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/../../client/images/posts')
+    cb(null, __dirname + '/../../public/images/posts')
   },
   filename: function (req, file, cb) {
     let filename = `${Date.now()}_${file.originalname}`;

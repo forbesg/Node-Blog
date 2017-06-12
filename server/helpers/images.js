@@ -3,9 +3,9 @@ const sharp = require('sharp');
 
 module.exports = {
   resize: (filename) => {
-    let originalImagePath = __dirname + '/../../client/images/posts/' + filename;
-    let imagePath = __dirname + '/../../client/images/posts/scaled_' + filename;
-    let thumbPath = __dirname + '/../../client/images/posts/thumbs/' + filename;
+    let originalImagePath = __dirname + '/../../public/images/posts/' + filename;
+    let imagePath = __dirname + '/../../public/images/posts/scaled_' + filename;
+    let thumbPath = __dirname + '/../../public/images/posts/thumbs/' + filename;
 
     sharp(originalImagePath).resize(1200, 675).toFile(imagePath, function(err) {
        if (err) {
@@ -20,9 +20,9 @@ module.exports = {
   },
 
   delete: (filename) => {
-    const originalImagePath = `${__dirname}/../../client/images/posts/${filename}`;
-    const imagePath = `${__dirname}/../../client/images/posts/scaled_${filename}`;
-    const thumbPath = `${__dirname}/../../client/images/posts/thumbs/${filename}`;
+    const originalImagePath = `${__dirname}/../../public/images/posts/${filename}`;
+    const imagePath = `${__dirname}/../../public/images/posts/scaled_${filename}`;
+    const thumbPath = `${__dirname}/../../public/images/posts/thumbs/${filename}`;
     fs.unlink(originalImagePath, (err) => {
       if (err) console.log(err);
       console.log('Original Image Deleted');

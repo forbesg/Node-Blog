@@ -114,6 +114,7 @@ module.exports = (app, passport) => {
   .get('/admin/dashboard', checkAuth, (req, res) => {
     let params = {
       title: 'Dashboard',
+      dashboard: true,
       user: req.user
     };
     request.get(`http://localhost:${port}/api/posts/`, (err, response, body) => {
@@ -124,12 +125,12 @@ module.exports = (app, passport) => {
     });
   })
 
-  .get('/admin/post/add', (req, res) => {
+  .get('/admin/post/add', checkAuth, (req, res) => {
     let title = "Add";
     res.render('page', {title, add: true, md});
   })
 
-  .get('/admin/post/edit/:postId', (req, res) => {
+  .get('/admin/post/edit/:postId', checkAuth, (req, res) => {
     let title = "Edit";
     request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
       if (err) return res.status(500).json({err})
@@ -139,7 +140,7 @@ module.exports = (app, passport) => {
     });
   })
 
-  .get('/admin/post/delete/:postId', (req, res) => {
+  .get('/admin/post/delete/:postId', checkAuth, (req, res) => {
     request.delete(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
       if (err) return res.status(500).json({err})
       res.redirect('/admin');
