@@ -2,6 +2,9 @@
   .columns
     .login.column.col-6.centered
       h2 Login
+      if message
+        .toast
+          p= message
       form.form-horizontal(action="/admin" method="POST")
         .form-group
           .col-3

@@ -6,37 +6,20 @@ const multer = require('multer');
 const image = require('../helpers/images');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const User = require('./models/UserModel');
 
 mongoose.connect('mongodb://localhost/spectre');
 const postSchema = mongoose.Schema({
   title: String,
   slug: String,
   date: String,
-  content: String,
+  content: String, // Saved as markdown
   summary: String,
   image: String
 });
-const UserSchema = mongoose.Schema({
-  email: {type: String, required: true, index: {unique: true}},
-  password: {type: String, required: true} //Bcrypt Hashed Password
-});
-UserSchema.pre('save', function(next) {
-  const user = this;
-  console.log(user);
-  // Only hash password if it has been modified or is new
-  if (!user.isModified('password')) return next();
 
-  bcrypt.hash(user.password, saltRounds, (err, hash) => {
-    if (err) return next(err);
-
-    // Replace password with the hashed one
-    user.password = hash;
-    next();
-  })
-})
 
 let Post = mongoose.model('post', postSchema);
-let User = mongoose.model('user', UserSchema);
 
 
 const jsonParser = bodyParser.json()
@@ -63,13 +46,19 @@ db.once('open', function() {
   console.log('Connected to MongoDB');
 });
 
-ApiRouter.post('/users', jsonParser, (req, res) => {
+ApiRouter.post('/users/register', jsonParser, (req, res) => {
   let user = new User(req.body);
   user.save((err, user) => {
     if (err) return console.log(err);
     console.log(user);
     res.send(user);
   });
+});
+
+ApiRouter.post('/users/login', jsonParser, (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  console.log(email. password);
 });
 
 ApiRouter.get('/posts', (req, res) => {

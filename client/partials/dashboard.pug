@@ -15,10 +15,10 @@
               td= post.title
               td= post.date
               td.text-center
-                a.btn.btn-default(href=`admin/post/edit/${post._id}`, title="Edit")
+                a.btn.btn-default(href=`/admin/post/edit/${post._id}`, title="Edit")
                   i.icon.icon-edit
               td.text-center
-                a.btn.btn-default.delete(href=`admin/post/delete/${post._id}`, title="Delete")
+                a.btn.btn-default.delete(href=`/admin/post/delete/${post._id}`, title="Delete")
                   i.icon.icon-delete
     nav.column.col-2.centered.col-sm-12
       .admin-nav
