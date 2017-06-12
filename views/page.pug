@@ -10,6 +10,8 @@ block content
     p #{body}
     if admin
       include partials/admin.pug
+    if register
+      include partials/register.pug
     if dashboard
       include partials/dashboard.pug
     if edit

@@ -1,0 +1,21 @@
+.admin
+  .columns
+    .login.column.col-6.centered
+      h2 Register
+      if message
+        .toast
+          p= message
+      form.form-horizontal(action="/admin/register" method="POST")
+        .form-group
+          .col-3
+            label.form-label(for="email") Email:
+          .col-9
+            input.form-input#email(type="email" name="email" placeholder="Email")
+        .form-group
+          .col-3
+            label.form-label(for="password") Password:
+          .col-9
+            input.form-input#password(type="password" name="password" placeholder="Password")
+        .form-group
+          .col-12
+            input.btn.btn-primary.float-right(type="submit" value="Register")

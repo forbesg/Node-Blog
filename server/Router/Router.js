@@ -55,18 +55,43 @@ module.exports = (app, passport) => {
     let params = {
       title: 'Login',
       admin: true
+    };
+    if (req.user) {
+      params.user = req.user
     }
+    console.log(req.user);
     res.render('page', params);
   })
 
   .post('/admin', bodyParser.urlencoded({extended: false}), function (err, req, res, next) {
-    console.log(req.body);
     next()
   }, passport.authenticate('local', {
     successRedirect: '/admin/dashboard',
     failureRedirect: '/',
-    failureFlash: true
+    // failureFlash: true
   }))
+
+  .get('/admin/register', (req, res) => {
+    let title = 'Login';
+    let params = {
+      title: 'Register',
+      register: true
+    }
+    res.render('page', params);
+  })
+  .post('/admin/register', bodyParser.urlencoded({extended: false}), (req, res) => {
+    console.log(req.body);
+    let options = {
+      method: 'post',
+      body: req.body,
+      json: true,
+      url: `http://localhost:${port}/api/users/register`
+    }
+    request(options, (err, response, body) => {
+      if (err) return res.status(500).json({err});
+      res.render('page', {admin: true});
+    })
+  })
 
   // .post('/admin', bodyParser.urlencoded({extended: false}), function (req, res, next) {
   //   console.log(req.body);

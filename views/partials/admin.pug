@@ -5,6 +5,8 @@
       if message
         .toast
           p= message
+      if user
+        h3= user
       form.form-horizontal(action="/admin" method="POST")
         .form-group
           .col-3
@@ -19,3 +21,5 @@
         .form-group
           .col-12
             input.btn.btn-primary.float-right(type="submit" value="Login")
+      h4 Need to Register?
+      a.btn.btn-link(href="/admin/register") Register

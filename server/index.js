@@ -10,7 +10,6 @@ const port = process.env.PORT || 3000;
 app.use(session({ secret: 'secretsessiontoken', resave: false, saveUninitialized: true}))
 app.use(passport.initialize());
 app.use(passport.session());
-console.log(app);
 
 const ApiRouter = require('./Router/ApiRouter');
 
@@ -23,11 +22,11 @@ filters.getSummary = (string, options) => {
 app.locals.md = md;
 app.locals.title = 'My Title set from locals';
 
-app.use(express.static(__dirname + '/../client'));
-app.set('view engine', 'pug');
-app.set('views', __dirname + '/../client');
-app.use('/api', ApiRouter);
 
+app.set('view engine', 'pug');
+app.set('views', __dirname + '/../views');
+app.use(express.static(__dirname + '/../public'));
+app.use('/api', ApiRouter);
 require('./Router/Router')(app, passport);
 
 app.listen(port, () => {

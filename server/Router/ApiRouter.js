@@ -47,12 +47,19 @@ db.once('open', function() {
 });
 
 ApiRouter.post('/users/register', jsonParser, (req, res) => {
+  console.log(req.body);
   let user = new User(req.body);
-  user.save((err, user) => {
-    if (err) return console.log(err);
-    console.log(user);
-    res.send(user);
-  });
+  if (user) {
+    user.save(function (err) {
+      if (err) {
+        console.log(err);
+        return res.send(err)
+      };
+      res.send(200);
+    });
+  } else {
+    console.log('We are here --- Why?');
+  }
 });
 
 ApiRouter.post('/users/login', jsonParser, (req, res) => {
