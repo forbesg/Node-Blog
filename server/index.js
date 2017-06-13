@@ -1,7 +1,7 @@
 const express = require('express');
 const pug = require('pug');
 const filters = pug.filters;
-const md = require('markdown').markdown;
+// const md = require('markdown').markdown;
 const app = express();
 const session = require('express-session');
 const passport = require('passport');
@@ -19,8 +19,8 @@ filters.getSummary = (string, options) => {
   return summary;
 }
 
-app.locals.md = md;
-app.locals.title = 'My Title set from locals';
+// app.locals.md = md;
+app.locals.site_title = 'My Special Site';
 
 
 app.set('view engine', 'pug');

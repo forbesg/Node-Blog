@@ -14,7 +14,7 @@ module.exports = (app, passport) => {
     *****/
     app.all('/admin/*', checkAuth)
     .get('/admin', (req, res) => {
-      console.log(res.locals);
+      console.log(app.locals);
       res.redirect('/admin/dashboard');
     })
 

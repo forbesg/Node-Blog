@@ -4,8 +4,8 @@
   "description": "Spectre, Express, MongoDB",
   "main": "./server/index.js",
   "scripts": {
-    "start": "node ./server/index.js",
-    "prod": "PORT=8080 node ./server/index",
+    "start": "NODE_ENV='development' node ./server/index.js",
+    "prod": "NODE_ENV='production' PORT=8080 node ./server/index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Forbes Gray <fnbg75@gmail.com>",
@@ -15,7 +15,6 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "express-session": "^1.15.3",
-    "fetch": "^1.1.0",
     "markdown": "^0.5.0",
     "moment": "^2.18.1",
     "mongoose": "^4.10.4",

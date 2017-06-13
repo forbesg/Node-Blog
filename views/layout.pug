@@ -13,7 +13,7 @@ html
         .container.grid-1280
           .brand.col-sm-12.text-center
             img(src="/logo.svg").logo
-            h1 My Site
+            h1 #{site_title}
           .user
             if user
               p Signed in: #{user.email}
@@ -34,6 +34,8 @@ html
                   if user
                     li.tab-item
                       a(href="/admin") Admin
+                    li.tab-item
+                      a(href=`/user/${user.id}`) User
       .main-container
         block feature
         .container.grid-1280.block-content

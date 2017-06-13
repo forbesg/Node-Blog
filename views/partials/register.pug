@@ -8,6 +8,16 @@
       form.form-horizontal(action="/admin/register" method="POST")
         .form-group
           .col-3
+            label.form-label(for="first_name") First Name:
+          .col-9
+            input.form-input#first_name(type="text" name="first_name" placeholder="First Name")
+        .form-group
+          .col-3
+            label.form-label(for="last_name") Last Name:
+          .col-9
+            input.form-input#last_name(type="text" name="last_name" placeholder="Last Name")
+        .form-group
+          .col-3
             label.form-label(for="email") Email:
           .col-9
             input.form-input#email(type="email" name="email" placeholder="Email")
