@@ -31,6 +31,7 @@ app.use(flash());
 
 app.use('/api', ApiRouter);
 require('./Router/AdminRouter')(app, passport);
+require('./Router/UserRouter')(app, passport);
 require('./Router/Router')(app, passport);
 
 app.listen(port, () => {

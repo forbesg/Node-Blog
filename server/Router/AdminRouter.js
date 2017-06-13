@@ -21,7 +21,7 @@ module.exports = (app, passport) => {
       res.redirect('/admin/dashboard');
     })
 
-    // Login 
+    // Login
     .post('/admin', bodyParser.urlencoded({extended: false}), passport.authenticate('local', {
       successRedirect: '/admin/dashboard',
       failureRedirect: '/login',
@@ -39,7 +39,7 @@ module.exports = (app, passport) => {
         dashboard: true,
         user: req.user
       };
-      request.get(`http://localhost:${port}/api/posts/`, (err, response, body) => {
+      request.get(`http://localhost:${port}/api/users/${req.user._id}/posts/`, (err, response, body) => {
         if (err) return res.status(500).json({err});
         params.posts = JSON.parse(body).posts;
         res.render('page', params);
@@ -51,9 +51,16 @@ module.exports = (app, passport) => {
       res.render('page', {title, add: true, md});
     })
 
+
+
+/************
+
+  NEED TO PROTECT EDIT AND DELETE ROUTES FROM NON OWNERS
+
+************/
     .get('/admin/post/edit/:postId', (req, res) => {
       let title = "Edit";
-      request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
+      request.get(`http://localhost:${port}/api/posts/edit/${req.params.postId}`, (err, response, body) => {
         if (err) return res.status(500).json({err})
         let post = JSON.parse(body).post;
         post.date = post.date.split('T')[0];

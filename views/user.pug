@@ -1,3 +1,11 @@
 extends layout
 block content
-  h1 #{user.email}
+  if user
+    .user
+      h1 #{user.first_name} #{user.last_name}
+      p Email: #{user.email}
+  if users
+    each user in users
+      h2 #{user.first_name} #{user.last_name}
+      h4 #{user.email}
+      a.btn.btn-primary(href=`/users/${user._id}`) View Users Profile

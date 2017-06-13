@@ -2,7 +2,6 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const port = process.env.PORT || 3000;
 const md = require('markdown').markdown;
-const User = require('./models/UserModel');
 
 
 module.exports = (app, passport) => {
@@ -106,22 +105,6 @@ module.exports = (app, passport) => {
     failureRedirect: '/register',
     failureFlash: true
   }))
-
-  /*****
-  User Routes
-  *****/
-
-  .get('/user/:userId', (req, res) => {
-    User.findOne({_id: req.params.userId}, (err, user) => {
-      if (user) {
-        console.log(user);
-        return res.render('user', {
-          user
-        })
-      }
-      res.redirect('/')
-    })
-  })
 
 
   /*****

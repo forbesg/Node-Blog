@@ -23,7 +23,8 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  posts: Array
 });
 
 UserSchema.methods.isValidPassword = function (password) {
