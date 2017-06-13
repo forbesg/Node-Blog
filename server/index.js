@@ -7,7 +7,7 @@ const session = require('express-session');
 const passport = require('passport');
 
 const port = process.env.PORT || 3000;
-app.use(session({ secret: 'secretsessiontoken', resave: false, saveUninitialized: true}))
+app.use(session({ secret: 'secretsessiontoken', resave: false, saveUninitialized: false}))
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -28,6 +28,7 @@ app.set('views', __dirname + '/../views');
 app.use(express.static(__dirname + '/../public'));
 
 app.use('/api', ApiRouter);
+require('./Router/AdminRouter')(app, passport);
 require('./Router/Router')(app, passport);
 
 app.listen(port, () => {

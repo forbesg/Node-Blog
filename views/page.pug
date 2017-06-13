@@ -8,8 +8,8 @@ block content
     if !admin
       h1 #{title}
     p #{body}
-    if admin
-      include partials/admin.pug
+    if login
+      include partials/login.pug
     if register
       include partials/register.pug
     if dashboard

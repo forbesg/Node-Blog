@@ -17,7 +17,9 @@ html
           .user
             if user
               p Signed in: #{user.email}
-              a.btn.btn-primary(href="/admin/logout") Logout
+                a.btn.btn-primary(href="/admin/logout") Logout
+            else
+              a.btn.btn-default(href="/login") Login
         .nav-bar
           .container.grid-1280
             .nav.col-12
@@ -29,8 +31,9 @@ html
                     a(href="/about") About
                   li.tab-item
                     a(href="/posts") Blog
-                  li.tab-item
-                    a(href="/admin") Admin
+                  if user
+                    li.tab-item
+                      a(href="/admin") Admin
       .main-container
         block feature
         .container.grid-1280.block-content

@@ -109,9 +109,6 @@ a:focus {
 i.icon {
   cursor: pointer;
 }
-.card h2 {
-  font-size: 2rem;
-}
 .card .card-image img {
   filter: grayscale(0.5);
   transition: filter 0.5s;

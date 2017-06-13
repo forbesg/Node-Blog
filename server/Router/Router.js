@@ -1,23 +1,18 @@
-// const express = require('express');
-// const app = express.app();
 const bodyParser = require('body-parser');
 const request = require('request');
 const port = process.env.PORT || 3000;
 const md = require('markdown').markdown;
-const auth = require('./auth');
 
-const checkAuth = function (req, res, next) {
-  if (!req.user) return res.redirect('/');
-  next();
-}
 
 module.exports = (app, passport) => {
+
   app.get('/', (req, res) => {
     res.render('index', {
       title: "My Other title",
       feature: {
         image: 'https://unsplash.it/1200/900?image=1059'
-      }
+      },
+      user: req.user
     });
   })
 
@@ -33,6 +28,7 @@ module.exports = (app, passport) => {
       feature: {
         image: 'https://unsplash.it/1200/800/'
       },
+      user: req.user,
       body: JSON.stringify(body)
     });
   })
@@ -41,7 +37,12 @@ module.exports = (app, passport) => {
     let title = 'Blog';
     request.get(`http://localhost:${port}/api/posts`, (err, response, body) => {
       if (err) return res.status(500).json({err});
-      res.render('blog', {title, posts: JSON.parse(body).posts, md});
+      res.render('blog', {
+        title,
+        posts: JSON.parse(body).posts,
+        md,
+        user: req.user
+      })
     })
   })
 
@@ -50,38 +51,45 @@ module.exports = (app, passport) => {
       if (err) return res.status(500).json({err});
       let bodyObject = JSON.parse(body);
       if (!bodyObject.post) return res.status(404).redirect('/not-found');
-      res.render('post', { title: bodyObject.post.title, post: bodyObject.post, posts: bodyObject.posts, md });
+      res.render('post', {
+        title: bodyObject.post.title,
+        post: bodyObject.post,
+        posts: bodyObject.posts,
+        user: req.user,
+        md
+      });
     })
   })
 
-  .get('/admin', (req, res) => {
+
+  /****
+    Login & Register
+  ****/
+
+  .get('/login', (req, res) => {
     let title = 'Login';
     let params = {
       title: 'Login',
-      admin: true
+      login: true
     };
     if (req.user) {
       params.user = req.user
     }
-    console.log(req.user);
     res.render('page', params);
   })
 
-  .post('/admin', bodyParser.urlencoded({extended: false}), passport.authenticate('local', {
-    successRedirect: '/admin/dashboard',
-    failureRedirect: '/',
-    // failureFlash: true
-  }))
-
-  .get('/admin/register', (req, res) => {
+  .get('/register', (req, res) => {
     let title = 'Login';
     let params = {
       title: 'Register',
       register: true
     }
+    if (req.user) {
+      return res.redirect('/admin/dashboard');
+    }
     res.render('page', params);
   })
-  .post('/admin/register', bodyParser.urlencoded({extended: false}), (req, res, next) => {
+  .post('/register', bodyParser.urlencoded({extended: false}), (req, res, next) => {
     console.log(req.body);
     let options = {
       method: 'post',
@@ -99,53 +107,65 @@ module.exports = (app, passport) => {
     // failureFlash: true
   }))
 
-  .get('/admin/logout', (req, res) => {
-    req.logout();
-    res.redirect('/admin');
-  })
 
-  // .post('/admin', bodyParser.urlencoded({extended: false}), function (req, res, next) {
-  //   console.log(req.body);
-  //   next()
-  // }, auth.authenticate('local', {
+  /*****
+  Admin (protected Routes)
+  *****/
+
+  // .get('/admin', (req, res) => {
+  //   console.log(res.locals);
+  //   res.redirect('/admin/dashboard');
+  // })
   //
+  // .post('/admin', bodyParser.urlencoded({extended: false}), passport.authenticate('local', {
+  //   successRedirect: '/admin/dashboard',
+  //   failureRedirect: '/',
+  //   // failureFlash: true
   // }))
+  //
+  // .get('/admin/logout', (req, res) => {
+  //   req.logout();
+  //   res.redirect('/admin');
+  // })
+  //
+  // .get('/admin/dashboard', (req, res) => {
+  //   let params = {
+  //     title: 'Dashboard',
+  //     dashboard: true,
+  //     user: req.user
+  //   };
+  //   request.get(`http://localhost:${port}/api/posts/`, (err, response, body) => {
+  //     if (err) return res.status(500).json({err});
+  //     params.posts = JSON.parse(body).posts;
+  //     res.render('page', params);
+  //   });
+  // })
+  //
+  // .get('/admin/post/add', (req, res) => {
+  //   let title = "Add";
+  //   res.render('page', {title, add: true, md});
+  // })
+  //
+  // .get('/admin/post/edit/:postId', (req, res) => {
+  //   let title = "Edit";
+  //   request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
+  //     if (err) return res.status(500).json({err})
+  //     let post = JSON.parse(body).post;
+  //     post.date = post.date.split('T')[0];
+  //     res.render('page', {title, edit: true, post, md});
+  //   });
+  // })
+  //
+  // .get('/admin/post/delete/:postId', (req, res) => {
+  //   request.delete(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
+  //     if (err) return res.status(500).json({err})
+  //     res.redirect('/admin');
+  //   });
+  // })
 
-  .get('/admin/dashboard', checkAuth, (req, res) => {
-    let params = {
-      title: 'Dashboard',
-      dashboard: true,
-      user: req.user
-    };
-    request.get(`http://localhost:${port}/api/posts/`, (err, response, body) => {
-      if (err) return res.status(500).json({err});
-      console.log(response, body);
-      params.posts = JSON.parse(body).posts;
-      res.render('page', params);
-    });
-  })
-
-  .get('/admin/post/add', checkAuth, (req, res) => {
-    let title = "Add";
-    res.render('page', {title, add: true, md});
-  })
-
-  .get('/admin/post/edit/:postId', checkAuth, (req, res) => {
-    let title = "Edit";
-    request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
-      if (err) return res.status(500).json({err})
-      let post = JSON.parse(body).post;
-      post.date = post.date.split('T')[0];
-      res.render('page', {title, edit: true, post, md});
-    });
-  })
-
-  .get('/admin/post/delete/:postId', checkAuth, (req, res) => {
-    request.delete(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
-      if (err) return res.status(500).json({err})
-      res.redirect('/admin');
-    });
-  })
+  /*****
+  Catch All Not Found
+  *****/
 
   .get('/*', (req, res) => {
     let title = 'Page Not Found';
