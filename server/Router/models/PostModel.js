@@ -1,0 +1,20 @@
+const mongoose = require('mongoose');
+
+const postSchema = mongoose.Schema({
+  title: String,
+  slug: String,
+  date: String,
+  content: String, // Saved as markdown
+  summary: String,
+  image: String,
+  author: {
+    name: String,
+    email: String,
+    id: String
+  }
+});
+
+
+let Post = mongoose.model('post', postSchema);
+
+module.exports = Post;

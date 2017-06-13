@@ -7,22 +7,11 @@ const image = require('../helpers/images');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const User = require('./models/UserModel');
-
-mongoose.Promise = global.Promise; //Plugin global Promises
+const Post = require('./models/PostModel')
 
 mongoose.connect('mongodb://localhost/spectre');
-const postSchema = mongoose.Schema({
-  title: String,
-  slug: String,
-  date: String,
-  content: String, // Saved as markdown
-  summary: String,
-  image: String
-});
 
-
-let Post = mongoose.model('post', postSchema);
-
+mongoose.Promise = global.Promise; //Plugin global Promises
 
 const jsonParser = bodyParser.json()
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -93,18 +82,25 @@ ApiRouter.post('/posts', upload.single('image'), (req, res) => {
   let postObject = req.body;
   postObject.image = req.file.filename;
   postObject.summary = `${postObject.content.substring(0, 96)} ....`;
+  postObject.author = {
+    name: req.user.first_name,
+    email: req.user.email,
+    id: req.user._id
+  }
 
   image.resize(postObject.image);
 
   let post = new Post(postObject);
 
   if (post) {
-    post.save((err, post) => {
-      if (err) return res.send({err});
+    post.save().then((post) => {
       return res.status(200).redirect('/posts');
+    }).catch(err => {
+      console.log(err, 'Error while saving post');
+      res.status(500).redirect('/posts');
     })
   } else {
-    console.log('There was an error');
+    console.log('There was an error - No Post object');
     res.status(500).redirect('/posts');
   }
 });

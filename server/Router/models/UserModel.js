@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 const UserSchema = mongoose.Schema({
   first_name: {
@@ -31,7 +31,7 @@ UserSchema.methods.isValidPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 }
 
-mongoose.connect('mongodb://localhost/spectre');
+// mongoose.connect('mongodb://localhost/spectre');
 
 UserSchema.pre('save', function(next) {
   const user = this;
