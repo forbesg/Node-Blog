@@ -8,6 +8,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const User = require('./models/UserModel');
 
+mongoose.Promise = global.Promise; //Plugin global Promises
+
 mongoose.connect('mongodb://localhost/spectre');
 const postSchema = mongoose.Schema({
   title: String,
@@ -39,7 +41,6 @@ const upload = multer({
   storage
 });
 
-
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -50,13 +51,13 @@ ApiRouter.post('/users/register', jsonParser, (req, res) => {
   console.log(req.body);
   let user = new User(req.body);
   if (user) {
-    user.save(function (err) {
+    user.save().then(err => {
       if (err) {
-        console.log(err);
+        console.log(err, 'Completes Save With Promise');
         return res.redirect('/')
       }
       res.send(200);
-    });
+    })
   } else {
     console.log('We are here --- Why?');
   }

@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const port = process.env.PORT || 3000;
 const auth = require('./auth');
+const md = require('markdown').markdown;
 
 const checkAuth = function (req, res, next) {
   if (!req.user) return res.redirect('/login');
@@ -12,16 +13,19 @@ module.exports = (app, passport) => {
     /*****
     Admin (protected Routes)
     *****/
+
+    // Check User is authenticated
     app.all('/admin/*', checkAuth)
+
     .get('/admin', (req, res) => {
-      console.log(app.locals);
       res.redirect('/admin/dashboard');
     })
 
+    // Login 
     .post('/admin', bodyParser.urlencoded({extended: false}), passport.authenticate('local', {
       successRedirect: '/admin/dashboard',
-      failureRedirect: '/',
-      // failureFlash: true
+      failureRedirect: '/login',
+      failureFlash: true
     }))
 
     .get('/admin/logout', (req, res) => {

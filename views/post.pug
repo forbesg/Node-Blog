@@ -10,13 +10,12 @@ block feature
           h1 #{post.title}
 
 block content
-  h1 #{post.title}
   .columns
     .main.post.column.col-9.col-md-8.col-sm-12
-      span.date Published on: #{post.date}
       if post.image
         .post-image
           img(src=`/images/posts/scaled_${post.image}`)
+      span.date Published on: #{post.date}
       .post-body!= md.toHTML(post.content)
     .sidebar.column.col-3.col-md-4.col-sm-12
       h4 Other Posts

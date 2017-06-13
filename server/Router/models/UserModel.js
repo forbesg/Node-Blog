@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+mongoose.Promise = global.Promise;
+
 const UserSchema = mongoose.Schema({
   first_name: {
     type: String,

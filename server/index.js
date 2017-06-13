@@ -1,10 +1,10 @@
 const express = require('express');
+const app = express();
 const pug = require('pug');
 const filters = pug.filters;
-// const md = require('markdown').markdown;
-const app = express();
 const session = require('express-session');
 const passport = require('passport');
+const flash = require('connect-flash');
 
 const port = process.env.PORT || 3000;
 app.use(session({ secret: 'secretsessiontoken', resave: false, saveUninitialized: false}))
@@ -26,6 +26,8 @@ app.locals.site_title = 'My Special Site';
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/../views');
 app.use(express.static(__dirname + '/../public'));
+
+app.use(flash());
 
 app.use('/api', ApiRouter);
 require('./Router/AdminRouter')(app, passport);

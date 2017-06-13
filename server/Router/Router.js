@@ -67,10 +67,11 @@ module.exports = (app, passport) => {
   ****/
 
   .get('/login', (req, res) => {
+    let message = req.flash('error')[0];
     let title = 'Login';
     let params = {
-      title: 'Login',
-      login: true
+      login: true,
+      message
     };
     if (req.user) {
       params.user = req.user
@@ -102,8 +103,8 @@ module.exports = (app, passport) => {
     })
   }, passport.authenticate('local', {
     successRedirect: '/admin/dashboard',
-    failureRedirect: '/',
-    // failureFlash: true
+    failureRedirect: '/register',
+    failureFlash: true
   }))
 
   /*****
