@@ -23,7 +23,7 @@ html
         .nav-bar
           .container.grid-1280
             .nav.col-12
-              nav
+              nav.flex
                 ul.tab
                   li.tab-item
                     a(href="/") Home
@@ -31,7 +31,8 @@ html
                     a(href="/about") About
                   li.tab-item
                     a(href="/posts") Blog
-                  if user
+                if user
+                  ul.tab.float-right
                     li.tab-item
                       a(href="/admin") Admin
                     li.tab-item

@@ -5,7 +5,14 @@ block content
       h1 #{user.first_name} #{user.last_name}
       p Email: #{user.email}
   if users
-    each user in users
-      h2 #{user.first_name} #{user.last_name}
-      h4 #{user.email}
-      a.btn.btn-primary(href=`/users/${user._id}`) View Users Profile
+    .columns
+      each user, index in users
+        .tile.column.col-4
+          .tile-icon
+            .example-tile-icon
+              img.round(src=`http://i.pravatar.cc/40?img=${index + 1}`)
+          .tile-content
+            p.tile-title #{user.first_name} #{user.last_name}
+            p.tile-subtitle #{user.email}
+            .tile-action
+              a.btn.btn-sm.btn-primary(href=`/users/${user._id}`) View Users Profile
