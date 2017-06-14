@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const port = process.env.PORT || 3000;
 const md = require('markdown').markdown;
+const Post = require('./models/PostModel');
 
 
 module.exports = (app, passport) => {
@@ -34,30 +35,41 @@ module.exports = (app, passport) => {
 
   .get('/posts', (req, res) => {
     let title = 'Blog';
-    request.get(`http://localhost:${port}/api/posts`, (err, response, body) => {
-      if (err) return res.status(500).json({err});
+    Post.find({}).limit(6).sort({date: -1}).exec().then(posts => {
       res.render('blog', {
         title,
-        posts: JSON.parse(body).posts,
+        posts,
         md,
         user: req.user
       })
-    })
+    }).catch(err => {
+      console.log('Error receivng Posts', err);
+      res.status(500).redirect('/posts');
+    });
   })
 
   .get('/posts/:postId', (req, res) => {
-    request.get(`http://localhost:${port}/api/posts/${req.params.postId}`, (err, response, body) => {
-      if (err) return res.status(500).json({err});
-      let bodyObject = JSON.parse(body);
-      if (!bodyObject.post) return res.status(404).redirect('/not-found');
-      res.render('post', {
-        title: bodyObject.post.title,
-        post: bodyObject.post,
-        posts: bodyObject.posts,
-        user: req.user,
-        md
-      });
-    })
+    Post.findById(req.params.postId).exec().then(post => {
+      let params = {
+        title: post.title,
+        post,
+        md,
+        user: req.user
+      }
+      Post.find({}).limit(5).sort({date: -1}).exec().then(posts => {
+        // Omit the current post from the sidebar
+        params.posts = posts.filter(p => {
+          return p._id.toString() !== post._id.toString();
+        });
+        return res.render('post', params);
+      }).catch(err => {
+        console.log(err);
+        return res.status(500).redirect('/posts');
+      })
+    }).catch(err => {
+      console.log('Error', err);
+      res.status(500).redirect('/posts');
+    });
   })
 
 

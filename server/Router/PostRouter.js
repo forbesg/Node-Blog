@@ -38,6 +38,7 @@ module.exports = (app, passport) => {
     let postObject = req.body;
     postObject.image = req.file.filename;
     postObject.summary = `${postObject.content.substring(0, 96)} ....`;
+    postObject.slug = req.body.title.tolowercase().split(' ').join('-');
     postObject.author = {
       name: `${req.user.first_name} ${req.user.last_name}`,
       email: req.user.email,
@@ -50,6 +51,7 @@ module.exports = (app, passport) => {
 
     if (post) {
       post.save().then((post) => {
+        console.log(post._id); // Need to Add post id to users posts Array
         return res.status(200).redirect('/posts');
       }).catch(err => {
         console.log(err, 'Error while saving post');
@@ -69,7 +71,6 @@ module.exports = (app, passport) => {
   .get('/admin/post/edit/:postId', (req, res) => {
     let title = "Edit";
     Post.findOne({ _id: req.params.postId }, (err, post) => {
-      console.log(post);
       if (!post) {
         return res.status(404).redirect('/admin');
       }
@@ -88,6 +89,50 @@ module.exports = (app, passport) => {
   /*****
   Edit Post
   *****/
+
+  .post('/admin/post/edit/:postId', upload.single('image'), (req, res) => {
+    Post.findById(req.params.postId).exec().then(post => {
+      // Return Unauthorized if current user is not the author of the post
+      if (post.author._id !== req.user._id.toString()) {
+        console.log('Not Authorized to Delete');
+        return res.status(401).redirect('/admin');
+      }
+
+      // Create updated post object with new values
+      let updatePost = {
+        title: req.body.title,
+        date: req.body.date,
+        content: req.body.content,
+        summary: `${req.body.content.substring(0, 96)} ....`
+      }
+      if (req.file) {
+        updatePost.image = req.file.filename;
+        image.resize(updatePost.image);
+        if (req.body.currentImage) {
+          image.delete(req.body.currentImage);
+        }
+      }
+      console.log(updatePost);
+
+      // Update the post on the DB
+      Post.update({
+        _id: req.params.postId
+      }, {
+        $set: updatePost
+      }).exec().then((post) => {
+        console.log('Successfully Updated Post', post);
+        return res.status(200).redirect('/admin');
+      }).catch(err => {
+        console.log(err);
+        return res.status(500).redirect('/admin');
+      });
+
+    }).catch(err => {
+      console.log(err);
+      res.status(500).redirect('/admin');
+    });
+
+  })
 
 
   /*****

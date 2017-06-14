@@ -2,7 +2,7 @@
   .columns
     .form.column.col-9.centered.col-sm-12
       h4.text-center Add A New Post
-      form.form-horizontal(action="/api/posts/" + post._id + ""  method="POST" enctype="multipart/form-data")
+      form.form-horizontal(action="/admin/post/edit/" + post._id + ""  method="POST" enctype="multipart/form-data")
         .form-group
           .col-3
             label.form-label(for="title") Post Title:
