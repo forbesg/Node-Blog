@@ -10,7 +10,7 @@ const postSchema = mongoose.Schema({
   author: {
     name: String,
     email: String,
-    id: String
+    _id: String
   }
 });
 

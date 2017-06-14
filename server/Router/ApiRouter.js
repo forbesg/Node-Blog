@@ -80,6 +80,8 @@ ApiRouter.get('/posts', (req, res) => {
   });
 });
 
+
+// Return last 5 posts and single post by ID
 ApiRouter.get('/posts/:postId', (req, res) => {
   Post.find().sort({date: -1}).limit(5).exec((err, posts) => {
     if (err) return res.send({err: err});
@@ -95,7 +97,6 @@ ApiRouter.get('/posts/:postId', (req, res) => {
 
 ApiRouter.get('/posts/edit/:postId', (req, res) => {
   Post.findOne({ _id: req.params.postId }, (err, post) => {
-
     if (!post) {
       res.redirect('/admin');
     }
@@ -109,9 +110,9 @@ ApiRouter.post('/posts', upload.single('image'), (req, res) => {
   postObject.image = req.file.filename;
   postObject.summary = `${postObject.content.substring(0, 96)} ....`;
   postObject.author = {
-    name: req.user.first_name,
+    name: `${req.user.first_name} ${req.user.last_name}`,
     email: req.user.email,
-    id: req.user._id
+    _id: req.user._id
   }
 
   image.resize(postObject.image);
