@@ -11,7 +11,7 @@ app.use(session({ secret: 'secretsessiontoken', resave: false, saveUninitialized
 app.use(passport.initialize());
 app.use(passport.session());
 
-const ApiRouter = require('./Router/ApiRouter');
+require('./Router/models/database');
 
 // Pug filters
 filters.getSummary = (string, options) => {
@@ -39,7 +39,7 @@ Admin (protected Routes)
 
 // Check User is authenticated
 app.all('/admin/*', checkAuth)
-app.use('/api', ApiRouter);
+// app.use('/api', ApiRouter);
 require('./Router/AdminRouter')(app, passport);
 require('./Router/UserRouter')(app, passport);
 require('./Router/Router')(app, passport);

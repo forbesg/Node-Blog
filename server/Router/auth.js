@@ -7,7 +7,6 @@ passport.use(new LocalStrategy({
     passwordField: 'password'
   },
   function(email, password, done) {
-    console.log('In local strategy', email, password);
     User.findOne({ email: email }, function(err, user) {
       if (err) { return done(err); }
       if (!user) {
@@ -16,7 +15,7 @@ passport.use(new LocalStrategy({
       }
       console.log(user.isValidPassword(password))
       if (!user.isValidPassword(password)) {
-        console.log('Incorrect password.', user.password);
+        console.log('Incorrect password.');
         return done(null, false, { message: 'Incorrect password.' });
       }
       console.log(user);

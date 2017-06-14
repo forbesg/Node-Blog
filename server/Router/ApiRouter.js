@@ -1,60 +1,60 @@
-const express = require('express');
-const ApiRouter = express.Router();
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const multer = require('multer');
-const image = require('../helpers/images');
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
-const User = require('./models/UserModel');
-const Post = require('./models/PostModel')
-
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost/spectre');
-mongoose.Promise = global.Promise; //Plugin global Promises
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Connected to MongoDB');
-});
-
-const jsonParser = bodyParser.json()
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
-
-// Set details for image uploads - Public Directory needs Image && Image/Posts directories
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, __dirname + '/../../public/images/posts')
-  },
-  filename: function (req, file, cb) {
-    let filename = `${Date.now()}_${file.originalname}`;
-    cb(null, filename)
-  }
-});
-const upload = multer({
-  storage
-});
+// const express = require('express');
+// const ApiRouter = express.Router();
+// const mongoose = require('mongoose');
+// const bodyParser = require('body-parser');
+// const multer = require('multer');
+// const image = require('../helpers/images');
+// const bcrypt = require('bcrypt');
+// const saltRounds = 10;
+// const User = require('./models/UserModel');
+// const Post = require('./models/PostModel')
+//
+// // Connect to MongoDB
+// mongoose.connect('mongodb://localhost/spectre');
+// mongoose.Promise = global.Promise; //Plugin global Promises
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   console.log('Connected to MongoDB');
+// });
+//
+// const jsonParser = bodyParser.json()
+// const urlencodedParser = bodyParser.urlencoded({ extended: false })
+//
+// // Set details for image uploads - Public Directory needs Image && Image/Posts directories
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, __dirname + '/../../public/images/posts')
+//   },
+//   filename: function (req, file, cb) {
+//     let filename = `${Date.now()}_${file.originalname}`;
+//     cb(null, filename)
+//   }
+// });
+// const upload = multer({
+//   storage
+// });
 
 
 /****
   Routes under the /api path - called from
 ****/
 
-ApiRouter.post('/users/register', jsonParser, (req, res) => {
-  console.log(req.body);
-  let user = new User(req.body);
-  if (user) {
-    user.save().then(err => {
-      if (err) {
-        console.log(err, 'Completes Save With Promise');
-        return res.redirect('/')
-      }
-      res.send(200);
-    })
-  } else {
-    console.log('We are here --- Why?');
-  }
-});
+// ApiRouter.post('/users/register', jsonParser, (req, res) => {
+//   console.log(req.body);
+//   let user = new User(req.body);
+//   if (user) {
+//     user.save().then(err => {
+//       if (err) {
+//         console.log(err, 'Completes Save With Promise');
+//         return res.redirect('/')
+//       }
+//       res.send(200);
+//     })
+//   } else {
+//     console.log('We are here --- Why?');
+//   }
+// });
 
 // ApiRouter.post('/users/login', jsonParser, (req, res) => {
 //   const email = req.body.email;
@@ -176,4 +176,4 @@ ApiRouter.post('/users/register', jsonParser, (req, res) => {
 //   });
 // });
 
-module.exports = ApiRouter;
+// module.exports = ApiRouter;

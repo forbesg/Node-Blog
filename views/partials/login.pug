@@ -23,12 +23,3 @@
             input.btn.btn-primary.float-right(type="submit" value="Login")
       h4 Need to Register?
       a.btn.btn-link(href="/register") Register
-
-script.
-  const clearButton = document.querySelector('.clear-button');
-  if (clearButton) {
-    clearButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.target.parentNode.remove();
-    })
-  }

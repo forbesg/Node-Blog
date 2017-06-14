@@ -35,15 +35,17 @@ module.exports = (app, passport) => {
 
   .get('/posts', (req, res) => {
     let title = 'Blog';
+    let message = req.flash('message')[0];
     Post.find({}).limit(6).sort({date: -1}).exec().then(posts => {
       res.render('blog', {
         title,
         posts,
         md,
-        user: req.user
+        user: req.user,
+        message
       })
     }).catch(err => {
-      console.log('Error receivng Posts', err);
+      console.log('Error receivng Posts');
       res.status(500).redirect('/posts');
     });
   })
@@ -67,7 +69,8 @@ module.exports = (app, passport) => {
         return res.status(500).redirect('/posts');
       })
     }).catch(err => {
-      console.log('Error', err);
+      console.log('Error', err.name); //How to Best handle Mongoose Errors??
+      req.flash('message', 'No Post Found with that ID');
       res.status(500).redirect('/posts');
     });
   })
@@ -101,7 +104,6 @@ module.exports = (app, passport) => {
     res.render('page', params);
   })
   .post('/register', bodyParser.urlencoded({extended: false}), (req, res, next) => {
-    console.log(req.body);
     let options = {
       method: 'post',
       body: req.body,

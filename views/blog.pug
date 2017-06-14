@@ -3,6 +3,9 @@ extends layout.pug
 block content
   .blog
     h1 #{title}
+    if message
+      .toast.toast-warning #{message}
+        button.btn.btn-clear.float-right.clear-button
 
   .posts.columns
     each post in posts

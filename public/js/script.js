@@ -3,6 +3,7 @@
   const header = document.querySelector('.header');
   const navBar = document.querySelector('.nav-bar');
   const originalNavOffset = navBar.offsetTop;
+  const clearButton = document.querySelector('.clear-button');
   window.onscroll = () => {
     if (pageYOffset >= originalNavOffset) {
       return header.classList.add('fixed-nav');
@@ -14,5 +15,11 @@
         e.preventDefault();
         console.log('Save?');
     }
+  }
+  if (clearButton) {
+    clearButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.target.parentNode.remove();
+    })
   }
 })();
