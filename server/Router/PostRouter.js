@@ -21,7 +21,7 @@ const upload = multer({
 });
 
 module.exports = (app, passport) => {
-  
+
   /************
     Routes protected from index.js
   ************/
@@ -39,7 +39,7 @@ module.exports = (app, passport) => {
     let postObject = req.body;
     postObject.image = req.file.filename;
     postObject.summary = `${postObject.content.substring(0, 96)} ....`;
-    postObject.slug = req.body.title.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ').join('-');
+    postObject.slug = Date.now() + "-" + req.body.title.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ').join('-');
     postObject.author = {
       name: `${req.user.first_name} ${req.user.last_name}`,
       email: req.user.email,
@@ -79,7 +79,6 @@ module.exports = (app, passport) => {
       Return if current user is not the author of the post
       **/
       if (req.user._id.toString() !== post.author._id) {
-        console.log('no _id match', typeof(req.user._id), typeof(post.author._id));
         return res.status(401).redirect('/admin');
       }
       post.date = post.date.split('T')[0];

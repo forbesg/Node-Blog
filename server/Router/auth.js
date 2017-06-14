@@ -18,7 +18,6 @@ passport.use(new LocalStrategy({
         console.log('Incorrect password.');
         return done(null, false, { message: 'Incorrect password.' });
       }
-      console.log(user);
       return done(null, user);
     });
   }

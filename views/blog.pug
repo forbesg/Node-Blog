@@ -15,9 +15,9 @@ block content
             .card-image
               img.img-responsive(src="/images/posts/scaled_" + post.image)
           .card-header
-            a(href=`posts/${post.slug}`)
+            a(href=`/posts/${post.slug}`)
               h4.card-title= post.title
             span.card-subtitle= post.date
           .card-body!= md.toHTML(post.summary)
           .card-footer
-            a.btn(href=`posts/${post.slug}`) View
+            a.btn(href=`/posts/${post.slug}`) View
