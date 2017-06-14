@@ -34,4 +34,4 @@ block content
                   img.img-responsive(src=`/images/posts/thumbs/${post.image}`)
               .card-body!= md.toHTML(post.summary)
               .card-footer
-                a.btn.btn-default(href=`/posts/${post._id}`) View Post
+                a.btn.btn-default(href=`/posts/${post.slug}`) View Post

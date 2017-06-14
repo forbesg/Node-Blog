@@ -49,8 +49,8 @@ module.exports = (app, passport) => {
     });
   })
 
-  .get('/posts/:postId', (req, res) => {
-    Post.findById(req.params.postId).exec().then(post => {
+  .get('/posts/:postSlug', (req, res) => {
+    Post.findOne({ slug: req.params.postSlug }).exec().then(post => {
       let params = {
         title: post.title,
         post,

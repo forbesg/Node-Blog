@@ -21,6 +21,7 @@ const upload = multer({
 });
 
 module.exports = (app, passport) => {
+  
   /************
     Routes protected from index.js
   ************/
@@ -38,7 +39,7 @@ module.exports = (app, passport) => {
     let postObject = req.body;
     postObject.image = req.file.filename;
     postObject.summary = `${postObject.content.substring(0, 96)} ....`;
-    postObject.slug = req.body.title.toLowerCase().split(' ').join('-');
+    postObject.slug = req.body.title.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ').join('-');
     postObject.author = {
       name: `${req.user.first_name} ${req.user.last_name}`,
       email: req.user.email,
