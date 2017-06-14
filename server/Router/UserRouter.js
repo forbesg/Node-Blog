@@ -10,7 +10,7 @@ const checkAuth = function (req, res, next) {
 }
 
 module.exports = (app, passport) => {
-  app.all('/users', checkAuth);
+  app.all('/users*', checkAuth);
 
   /****
   Register New User
