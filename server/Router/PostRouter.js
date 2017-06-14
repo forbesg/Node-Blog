@@ -38,7 +38,7 @@ module.exports = (app, passport) => {
     let postObject = req.body;
     postObject.image = req.file.filename;
     postObject.summary = `${postObject.content.substring(0, 96)} ....`;
-    postObject.slug = req.body.title.tolowercase().split(' ').join('-');
+    postObject.slug = req.body.title.toLowerCase().split(' ').join('-');
     postObject.author = {
       name: `${req.user.first_name} ${req.user.last_name}`,
       email: req.user.email,
