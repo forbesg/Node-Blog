@@ -89,8 +89,8 @@ a:focus {
   background-color: transparent;
 }
 .container.block-content {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 /* Toasts */
@@ -112,24 +112,33 @@ a:focus {
   margin-left: -150px;
   animation: fadeInDown 0.5s;
 }
+.toast .btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 
 /* Blog Page */
 .blog {
   position: relative;
 }
 
-
-
-.post.card h4 {
+.card h2 {
+  color: #34728f;
   font-size: 2rem;
+  font-weight: bold;
 }
-.post.card a h4 {
+.card h4 {
+  color: #34728f;
+  font-size: 1.8rem;
+}
+.card a h4 {
   color: #34728f;
 }
-.post.card a:hover {
+.card a:hover {
   text-decoration: none;
 }
-.post.card a:hover h4 {
+.card a:hover h4 {
   color: #07222e;
 }
 .post .post-image {

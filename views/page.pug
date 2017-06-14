@@ -5,7 +5,7 @@ block feature
 
 block content
   .main
-    if !admin && title
+    if !admin && !login && !register && title
       h1 #{title}
     p #{body}
     if login

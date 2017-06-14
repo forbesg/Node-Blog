@@ -24,7 +24,7 @@ module.exports = (app, passport) => {
 
     .get('/admin/logout', (req, res) => {
       req.logout();
-      res.redirect('/admin');
+      res.redirect('/login');
     })
 
 

@@ -103,22 +103,6 @@ module.exports = (app, passport) => {
     }
     res.render('page', params);
   })
-  .post('/register', bodyParser.urlencoded({extended: false}), (req, res, next) => {
-    let options = {
-      method: 'post',
-      body: req.body,
-      json: true,
-      url: `http://localhost:${port}/api/users/register`
-    };
-    request(options, (err, response, body) => {
-      if (err) return res.status(500).json({err});
-      next();
-    })
-  }, passport.authenticate('local', {
-    successRedirect: '/admin/dashboard',
-    failureRedirect: '/register',
-    failureFlash: true
-  }))
 
 
   /*****

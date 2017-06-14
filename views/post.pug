@@ -24,13 +24,14 @@ block content
       h4 Other Posts
       .cards.columns
         each post in posts
-          .card.column.col-12.col-sm-6.col-xs-6(style="margin-bottom: 30px")
-            .card-header
-              .card-title= post.title
-              .card-subtitle= post.date
-            if post.image
-              .card-image
-                img.img-responsive(src=`/images/posts/thumbs/${post.image}`)
-            .card-body!= md.toHTML(post.summary)
-            .card-footer
-              a.btn.btn-default(href=`/posts/${post._id}`) View Post
+          .column.col-12.col-sm-6.col-xs-6(style="margin-bottom: 30px")
+            .card
+              .card-header
+                .card-title= post.title
+                .card-subtitle= post.date
+              if post.image
+                .card-image
+                  img.img-responsive(src=`/images/posts/thumbs/${post.image}`)
+              .card-body!= md.toHTML(post.summary)
+              .card-footer
+                a.btn.btn-default(href=`/posts/${post._id}`) View Post

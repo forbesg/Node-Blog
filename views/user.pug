@@ -1,9 +1,9 @@
 extends layout
 block content
-  if user
+  if thisUser
     .user
-      h1 #{user.first_name} #{user.last_name}
-      p Email: #{user.email}
+      h1 #{thisUser.first_name} #{thisUser.last_name}
+      p Email: #{thisUser.email}
   if users
     .columns
       each user, index in users

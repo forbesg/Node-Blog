@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const postSchema = mongoose.Schema({
   title: String,
-  slug: String,
+  slug: {
+    type: String,
+    unique: true
+  },
   date: String,
   content: String, // Saved as markdown
   summary: String,
