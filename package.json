@@ -24,7 +24,6 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "pug": "^2.0.0-rc.1",
-    "request": "^2.81.0",
     "sharp": "^0.18.1",
     "spectre-css": "^1.0.0"
   },
