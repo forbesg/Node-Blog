@@ -2,9 +2,6 @@
   .columns
     .login.column.col-6.col-sm-12.centered
       h2 Login
-      if message
-        .toast.toast-warning= message
-          .btn.btn-clear.float-right.clear-button
       if user
         h3= user
       form.form-horizontal(action="/admin" method="POST")

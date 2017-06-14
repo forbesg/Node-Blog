@@ -16,8 +16,18 @@ const storage = multer.diskStorage({
     cb(null, filename)
   }
 });
+const fileFilter = (req, file, cb) => {
+  console.log(file.mimetype.split('/')[0]);
+  if (file.mimetype.split('/')[0] !== 'image') {
+    console.log('The file is not an image');
+    req.flash('error', 'The file is not an image');
+    return cb(null, false);
+  }
+  cb(null, true);
+}
 const upload = multer({
-  storage
+  storage,
+  fileFilter
 });
 
 module.exports = (app, passport) => {
@@ -27,7 +37,8 @@ module.exports = (app, passport) => {
   ************/
   app.get('/admin/post/add', (req, res) => {
     let title = "Add";
-    res.render('page', {title, add: true, md});
+    let message = req.flash('error')[0];
+    res.render('page', {title, add: true, message, md});
   })
 
 
@@ -37,6 +48,12 @@ module.exports = (app, passport) => {
 
   .post('/admin/post/add', upload.single('image'), (req, res) => {
     let postObject = req.body;
+
+    // If file is not an image redirect to add post form with flash error message
+    if (!req.file) {
+      req.flash('error', 'The File Is Not an Image');
+      return res.redirect('/admin/post/add');
+    }
     postObject.image = req.file.filename;
     postObject.summary = `${postObject.content.substring(0, 96)} ....`;
     postObject.slug = Date.now() + "-" + req.body.title.replace(/[^a-zA-Z ]/g, "").toLowerCase().split(' ').join('-');

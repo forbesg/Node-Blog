@@ -8,6 +8,9 @@ block content
     if !admin && !login && !register && title
       h1 #{title}
     p #{body}
+    if message
+      .toast.toast-warning= message
+        .btn.btn-clear.clear-button
     if login
       include partials/login.pug
     if register
