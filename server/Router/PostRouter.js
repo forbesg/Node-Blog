@@ -122,6 +122,9 @@ module.exports = (app, passport) => {
         content: req.body.content,
         summary: `${req.body.content.substring(0, 96)} ....`
       }
+
+      // If uploaded file exists resize image, delete old files and update image path on the post object
+      // Perhaps needs to notify if file is not an image
       if (req.file) {
         updatePost.image = req.file.filename;
         image.resize(updatePost.image);
@@ -129,7 +132,6 @@ module.exports = (app, passport) => {
           image.delete(req.body.currentImage);
         }
       }
-      console.log(updatePost);
 
       // Update the post on the DB
       Post.update({
