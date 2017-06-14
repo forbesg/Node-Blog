@@ -11,6 +11,7 @@ app.use(session({ secret: 'secretsessiontoken', resave: false, saveUninitialized
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Import Database Connection
 require('./Router/models/database');
 
 // Pug filters
@@ -19,8 +20,8 @@ filters.getSummary = (string, options) => {
   return summary;
 }
 
-// app.locals.md = md;
 app.locals.site_title = 'My Special Site';
+app.locals.title = 'Page Title';
 
 
 app.set('view engine', 'pug');
@@ -37,9 +38,9 @@ const checkAuth = function (req, res, next) {
 Admin (protected Routes)
 *****/
 
-// Check User is authenticated
+// Check User is authenticated when accessin Admin routes
 app.all('/admin/*', checkAuth)
-// app.use('/api', ApiRouter);
+
 require('./Router/AdminRouter')(app, passport);
 require('./Router/UserRouter')(app, passport);
 require('./Router/Router')(app, passport);
