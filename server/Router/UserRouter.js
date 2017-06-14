@@ -16,14 +16,16 @@ module.exports = (app, passport) => {
   Register New User
   ****/
   app.post('/register', bodyParser.urlencoded({extended: false}), (req, res, next) => {
-    console.log(req.body);
     let user = new User(req.body);
     if (user) {
       user.save().then(user => {
         if (user) next();
       }).catch(err => {
-        console.log(err, 'Error registering user');
-        return res.redirect('/')
+        // Check for duplicate code 11000 & add flash message if it is
+        if (err.code === 11000) {
+          req.flash('error', 'This email is already registered');
+        }
+        return res.redirect('/register')
       })
     } else {
       console.log('We are here --- Why?');

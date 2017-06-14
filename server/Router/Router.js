@@ -93,13 +93,16 @@ module.exports = (app, passport) => {
   })
 
   .get('/register', (req, res) => {
-    let title = 'Login';
-    let params = {
-      register: true
-    }
+    // redirect to dashboard id user is logged in
     if (req.user) {
       return res.redirect('/admin/dashboard');
     }
+    let title = 'Login';
+    let params = {
+      register: true,
+      message: req.flash('error')[0]
+    };
+
     res.render('page', params);
   })
 
