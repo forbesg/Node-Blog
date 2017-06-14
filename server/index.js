@@ -28,7 +28,17 @@ app.set('views', __dirname + '/../views');
 app.use(express.static(__dirname + '/../public'));
 
 app.use(flash());
+const checkAuth = function (req, res, next) {
+  if (!req.user) return res.redirect('/login');
+  next();
+}
 
+/*****
+Admin (protected Routes)
+*****/
+
+// Check User is authenticated
+app.all('/admin/*', checkAuth)
 app.use('/api', ApiRouter);
 require('./Router/AdminRouter')(app, passport);
 require('./Router/UserRouter')(app, passport);

@@ -28,8 +28,9 @@ block content
             .card-header
               .card-title= post.title
               .card-subtitle= post.date
-            .card-image
-              img.img-responsive(src=`/images/posts/thumbs/${post.image}`)
+            if post.image
+              .card-image
+                img.img-responsive(src=`/images/posts/thumbs/${post.image}`)
             .card-body!= md.toHTML(post.summary)
             .card-footer
               a.btn.btn-default(href=`/posts/${post._id}`) View Post
