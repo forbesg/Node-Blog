@@ -9,7 +9,14 @@ const flash = require('connect-flash');
 
 const port = process.env.PORT || 3000;
 app.use(helmet());
-app.use(session({ secret: 'secretsessiontoken', resave: false, saveUninitialized: false}));
+app.use(session({
+  secret: 'yosemite sam',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    name: 'node_blog'
+  }
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 

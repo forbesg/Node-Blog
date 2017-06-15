@@ -141,6 +141,11 @@ a:focus {
 .card a:hover h4 {
   color: #07222e;
 }
+.post .post-details {
+  font-size: small;
+  padding-bottom: 30px;
+  color: #888;
+}
 .post .post-image {
   margin: 1rem -1rem;
 }
