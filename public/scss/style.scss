@@ -1,0 +1,242 @@
+body {
+  font-size: 16px;
+  a:focus {
+    box-shadow: none;
+    outline: none;
+  }
+  hr {
+    border: none;
+    border-bottom: 1px solid #dadada;
+    margin: 30px 0;
+  }
+  i.icon {
+    cursor: pointer;
+  }
+  header {
+    background-color: #34728f;
+    color: #fff;
+    .fixed-nav {
+      padding-bottom: 49px;
+    }
+    .brand {
+      padding: 30px 0;
+      text-align: center;
+    }
+    .brand .logo {
+      width:100px;
+    }
+    .user {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1rem;
+    }
+    .nav-bar {
+      background-color: #90acb8;
+      transition: background-color 0.2s;
+    }
+    .nav-bar nav.flex {
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    &.fixed-nav .nav-bar {
+      background-color: rgba(144, 172, 184, 0.8);
+      box-shadow: 0 1px 2px #444;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 2;
+    }
+    .nav-bar .tab-item:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  .main-container {
+    .feature {
+      position: relative;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      height: 400px;
+    }
+    .feature .container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .feature .feature-text {
+      position: relative;
+      background-color: rgba(0, 0, 0, 0.56);
+      padding: 20px;
+      color: #fff;
+      text-align: center;
+    }
+    .feature .feature-text img {
+      width: 50px;
+    }
+    .feature.post {
+      height: 300px;
+    }
+    .feature.post .grayscale-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(25, 28, 31, 0.9);
+    }
+    .feature.post .feature-text {
+      position: relative;
+      background-color: transparent;
+    }
+    .container.block-content {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+  } /** End .main-container **/
+
+  /* Toasts */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .toast {
+    position: absolute;
+    top: 20px;
+    max-width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    animation: fadeInDown 0.5s;
+  }
+  .toast .btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  /* Blog Page */
+  .blog {
+    position: relative;
+  }
+
+  .card {
+    h2 {
+      color: #34728f;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    h4 {
+      color: #34728f;
+      font-size: 1.8rem;
+    }
+    a h4 {
+      color: #34728f;
+    }
+    a:hover {
+      text-decoration: none;
+    }
+    a:hover h4 {
+      color: #07222e;
+    }
+    .card-image img {
+      filter: grayscale(0.5);
+      transition: filter 0.5s;
+      width: 100%;
+    }
+    &:hover .card-image img {
+      filter: grayscale(0);
+    }
+  } /** End .card **/
+
+  .post {
+    .post-details {
+      font-size: small;
+      padding-bottom: 30px;
+      color: #888;
+    }
+    .post-image {
+      margin: 1rem -1rem;
+    }
+    .post-image img {
+      width: 100%;
+    }
+  } /** END .post **/
+
+
+  .admin {
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(68, 68, 68, 0.8);
+      color: #fff;
+    }
+    textarea.form-input {
+      font-size: 1.6rem;
+      min-height: 500px;
+    }
+  } /** END .admin**/
+
+
+  footer {
+    background-color: #1d3c4b;
+    color: #fff;
+    padding-top: 30px;
+    .column {
+      font-size: 1.2rem;
+    }
+    .copy {
+      text-align: center;
+    }
+  } /** END footer**/
+
+  @media(min-width: 601px) {
+    header .brand {
+      /*text-align: left;*/
+    }
+    .feature {
+      background-attachment: fixed;
+    }
+    .post .post-image {
+      margin: 1rem auto;
+    }
+  }
+
+  /**
+    Spectre Overrides
+  **/
+  .btn {
+    background: #fff;
+    border-color: #34728f;
+    color: #34728f;
+  }
+  .btn:hover {
+    background: #34728f;
+    border-color: #34728f;
+    color: #fff;
+  }
+  .btn.btn-primary {
+    background: #34728f;
+    border-color: #34728f;
+    color: #fff;
+  }
+  .btn.btn-primary:focus, .btn.btn-primary:hover {
+    background: #245268;
+    border-color: #245268;
+    color: #fff;
+  }
+  .tab .tab-item a:focus, .tab .tab-item a:hover {
+      color: #48536f;
+  }
+}

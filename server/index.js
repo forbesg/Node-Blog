@@ -6,8 +6,14 @@ const filters = pug.filters;
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
+const sass = require('node-sass-middleware');
+const path = require('path');
 
 const port = process.env.PORT || 3000;
+const development = process.env.NODE_ENV === 'development' ? true : false;
+
+console.log(development);
+
 app.use(helmet());
 app.use(session({
   secret: 'yosemite sam',
@@ -35,20 +41,18 @@ app.locals.title = 'Page Title';
 
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/../views');
-app.use(express.static(__dirname + '/../public'));
+
+app.use(sass({
+  src: path.join(__dirname, '/../public/css/scss/'),
+  dest: path.join(__dirname, '/../public/css/'),
+  prefix: '/css'
+}));
+
+app.use(express.static(path.join(__dirname, '/../public')));
 
 app.use(flash());
-const checkAuth = function (req, res, next) {
-  if (!req.user) return res.redirect('/login');
-  next();
-}
 
-/*****
-Admin (protected Routes)
-*****/
 
-// Check User is authenticated when accessin Admin routes
-app.all('/admin/*', checkAuth)
 
 require('./Router/AdminRouter')(app, passport);
 require('./Router/UserRouter')(app, passport);

@@ -6,8 +6,15 @@ const Post = require('./models/PostModel');
 
 module.exports = (app, passport) => {
     /*****
-    Admin (protected Routes from index.js)
+    Admin (protected Routes)
     *****/
+
+    // Check User is authenticated when accessin Admin routes
+    const checkAuth = function (req, res, next) {
+      if (!req.user) return res.redirect('/login');
+      next();
+    }
+    app.all('/admin*', checkAuth)
 
     app.get('/admin', (req, res) => {
       res.redirect('/admin/dashboard');
