@@ -38,7 +38,7 @@ module.exports = (app, passport) => {
   app.get('/admin/post/add', (req, res) => {
     let title = "Add";
     let message = req.flash('error')[0];
-    res.render('page', {title, add: true, message, md});
+    res.render('page', {title, add: true, message, md, user: req.user});
   })
 
 
@@ -99,7 +99,7 @@ module.exports = (app, passport) => {
         return res.status(401).redirect('/admin');
       }
       post.date = post.date.split('T')[0];
-      res.render('page', {title, edit: true, post, md});
+      res.render('page', {title, edit: true, post, md, user: req.user});
     });
   })
 

@@ -8,11 +8,8 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const sass = require('node-sass-middleware');
 const path = require('path');
-
 const port = process.env.PORT || 3000;
 const development = process.env.NODE_ENV === 'development' ? true : false;
-
-console.log(development);
 
 app.use(helmet());
 app.use(session({
@@ -38,7 +35,6 @@ filters.getSummary = (string, options) => {
 app.locals.site_title = 'My Special Site';
 app.locals.title = 'Page Title';
 
-
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/../views');
 
@@ -47,12 +43,8 @@ app.use(sass({
   dest: path.join(__dirname, '/../public/css/'),
   prefix: '/css'
 }));
-
 app.use(express.static(path.join(__dirname, '/../public')));
-
 app.use(flash());
-
-
 
 require('./Router/AdminRouter')(app, passport);
 require('./Router/UserRouter')(app, passport);
