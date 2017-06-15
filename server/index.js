@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const helmet = require('helmet');
 const pug = require('pug');
 const filters = pug.filters;
 const session = require('express-session');
@@ -7,7 +8,8 @@ const passport = require('passport');
 const flash = require('connect-flash');
 
 const port = process.env.PORT || 3000;
-app.use(session({ secret: 'secretsessiontoken', resave: false, saveUninitialized: false}))
+app.use(helmet());
+app.use(session({ secret: 'secretsessiontoken', resave: false, saveUninitialized: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
