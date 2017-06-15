@@ -29,6 +29,20 @@ module.exports = (app, passport) => {
       failureFlash: true
     }))
 
+    .get('/auth/google', (req, res, next) => {
+      console.log('trying');
+      next();
+    }, passport.authenticate('google', {
+      scope: ['profile']
+    }))
+
+    .get('/auth/google/callback', passport.authenticate('google', {
+      failureRedirect: '/'
+    }), (req, res) => {
+      console.log('Successfully Logged In with Google');
+      res.redirect('/admin/dashboard')
+    })
+
     .get('/admin/logout', (req, res) => {
       req.logout();
       res.redirect('/login');

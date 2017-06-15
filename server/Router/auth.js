@@ -1,7 +1,13 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const googleConfig = require('../config/config').googleConfig;
 const User = require('./models/UserModel');
 
+
+/*****
+  PASSPOSRT LOCAL STRATEGY
+*****/
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
@@ -19,6 +25,18 @@ passport.use(new LocalStrategy({
         return done(null, false, { message: 'Incorrect password.' });
       }
       return done(null, user);
+    });
+  }
+));
+
+/*****
+  PASSPORT GOOGLE STRATEGY
+*****/
+passport.use(new GoogleStrategy(googleConfig,
+  function(accessToken, refreshToken, profile, cb) {
+    console.log(profile);
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
     });
   }
 ));

@@ -1,6 +1,6 @@
 .admin
   .columns
-    .login.column.col-6.col-sm-12.centered
+    .login.column.col-8.col-sm-12.centered
       h2 Login
       if user
         h3= user
@@ -18,5 +18,8 @@
         .form-group
           .col-12
             input.btn.btn-primary.float-right(type="submit" value="Login")
+      h2 Or With Google
+      a.btn.btn-primary(href="/auth/google") Google
+    .register.column.col-8.col-sm-12.centered
       h4 Need to Register?
-      a.btn.btn-link(href="/register") Register
+      a.btn.btn-defult(href="/register") Register
