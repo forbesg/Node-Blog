@@ -45,15 +45,11 @@ module.exports = (app, passport) => {
     }))
 
     // Facebook
-    .get('/auth/facebook', (req, res, next) => {
-      next();
-    }, passport.authenticate('facebook', {
-      scope: ['profile', 'email']
-    }))
+    .get('/auth/facebook', passport.authenticate('facebook'))
 
     .get('/auth/facebook/callback', passport.authenticate('facebook', {
       successRedirect: '/admin/dashboard',
-      failureRedirect: '/',
+      failureRedirect: '/login',
       failureFlash: true
     }))
 

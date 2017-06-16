@@ -1,9 +1,9 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const googleConfig = require('../config/config').googleConfig;
+const FacebookStrategy = require('passport-facebook');
+const config = require('../config/config');
 const User = require('./models/UserModel');
-
 
 
 passport.serializeUser(function(user, done) {
@@ -47,9 +47,13 @@ passport.use(new LocalStrategy({
 /*****
   PASSPORT GOOGLE STRATEGY
 *****/
-passport.use(new GoogleStrategy(googleConfig,
+passport.use(new GoogleStrategy(config.google,
   function(accessToken, refreshToken, profile, done) {
-    User.findOne({ provider: 'google', email: profile.emails[0].value }).exec().then(user => {
+    User.findOne({ email: profile.emails[0].value }).exec().then(user => {
+      // Check that email is not already registered
+      if (user && user.provider !== 'google') {
+        return done(null, false, {message: "Email is already registered using a different service."});
+      }
       if (!user) {
         let newUser = {
           first_name: profile.name.givenName,
@@ -67,6 +71,48 @@ passport.use(new GoogleStrategy(googleConfig,
           done(err, false)
         });
       } else {
+        done(null, user);
+      }
+    }).catch(err => {
+      console.log(err);
+      done(err, false)
+    });
+  }
+));
+
+/*****
+  PASSPORT FACEBOOK STRATEGY
+*****/
+passport.use(new FacebookStrategy(config.facebook,
+  function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    User.findOne({ email: profile.emails[0].value }).exec().then(user => {
+      // Check that email is not already registered
+      if (user && user.provider !== 'facebook') {
+        return done(null, false, {message: "Email is already registered using a different service."});
+      }
+
+      // If no user - create new user
+      if (!user) {
+        let newUser = {
+          first_name: profile.name.givenName,
+          last_name: profile.name.familyName,
+          email: profile.emails[0].value,
+          password: 'facebook', // Not used as redirects social logins in local strategy
+          provider: profile.provider,
+          profilePicture: profile.photos[0].value,
+          posts: []
+        };
+
+        user = new User(newUser);
+        user.save().then(user => {
+          done(null, user);
+        }).catch(err => {
+          done(err, false)
+        });
+      }
+      // If User is found pass user through
+      else {
         done(null, user);
       }
     }).catch(err => {

@@ -16,8 +16,15 @@
         .form-group
           .col-12
             input.btn.btn-primary.float-right(type="submit" value="Login")
-      h2 Or With Google
-      a.btn.btn-primary(href="/auth/google") Google
+      .social-login.columns
+        .column.col-12
+          h4 Social Login
+        .column.col-6.col-sm-12
+          h6 Login With Google
+          a.btn.btn-primary(href="/auth/google") Google
+        .column.col-6.col-sm-12
+          h6 Login With Facebook
+          a.btn.btn-primary(href="/auth/facebook") Facebook
     .register.column.col-8.col-sm-12.centered
       h4 Need to Register?
       a.btn.btn-defult(href="/register") Register
