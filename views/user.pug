@@ -2,12 +2,21 @@ extends layout
 block content
   if thisUser
     .user
-      h1 #{thisUser.first_name} #{thisUser.last_name}
-      p Email: #{thisUser.email}
+      .col-6.col-sm-12.centered
+        h2 User Profile
+        if thisUser.profilePicture
+          .profile-picture
+            img(src=`${thisUser.profilePicture}`)
+        h1 #{thisUser.first_name} #{thisUser.last_name}
+        p Email: #{thisUser.email}
+      hr.col-6.col-sm-12.centered
+      .col-6.col-sm-12.centered
+        h6 View All Users
+        a.btn.bt-default(href="/users") All Users
   if users
     .columns
       each user, index in users
-        .tile.column.col-4
+        .tile.column.col-4.col-md-6.col-sm-12
           .tile-icon
             .example-tile-icon
               if user.profilePicture

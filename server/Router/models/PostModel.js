@@ -13,7 +13,8 @@ const postSchema = mongoose.Schema({
   author: {
     name: String,
     email: String,
-    _id: String
+    _id: String,
+    profilePicture: String
   }
 });
 

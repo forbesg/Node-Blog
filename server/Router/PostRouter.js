@@ -60,7 +60,8 @@ module.exports = (app, passport) => {
     postObject.author = {
       name: `${req.user.first_name} ${req.user.last_name}`,
       email: req.user.email,
-      _id: req.user._id
+      _id: req.user._id,
+      profilePicture: req.user.profilePicture
     }
 
     image.resize(postObject.image);

@@ -4,6 +4,7 @@
   const navBar = document.querySelector('.nav-bar');
   const originalNavOffset = navBar.offsetTop;
   const clearButton = document.querySelector('.clear-button');
+  const dropdownLink = document.querySelector('.dropdown-link');
 
   // Set Fixed class to nav bar
   function handleScroll() {
@@ -36,6 +37,13 @@
     clearButton.addEventListener('click', function(e) {
       e.preventDefault();
       e.target.parentNode.remove();
+    })
+  }
+  if (dropdownLink) {
+    dropdownLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      console.log('clicked', e.target);
+      dropdownLink.parentNode.classList.toggle('closed');
     })
   }
 })();

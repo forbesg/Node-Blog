@@ -18,9 +18,22 @@ header {
     width: 100px; }
   header .user {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 5px;
+    right: 5px;
     font-size: 1rem; }
+    header .user ul.menu {
+      background-color: #34728f;
+      box-shadow: none;
+      height: auto;
+      min-width: 14rem;
+      overflow: hidden; }
+      header .user ul.menu.closed {
+        background-color: transparent;
+        height: 50px; }
+      header .user ul.menu .dropdown-link {
+        cursor: pointer; }
+      header .user ul.menu .menu-item a:hover {
+        color: #dadada; }
 
 header .nav-bar {
   background-color: #90acb8;

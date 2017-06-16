@@ -40,7 +40,7 @@ module.exports = (app, passport) => {
 
     .get('/auth/google/callback', passport.authenticate('google', {
       successRedirect: '/admin/dashboard',
-      failureRedirect: '/',
+      failureRedirect: '/login',
       failureFlash: true
     }))
 

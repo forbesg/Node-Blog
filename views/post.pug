@@ -15,11 +15,15 @@ block content
       if post.image
         .post-image
           img(src=`/images/posts/scaled_${post.image}`)
-      .post-details
-        span.date Published on: #{post.date}
-        if post.author
-          br
-          span.author Posted by: #{post.author.name}
+      .post-details.tile
+        if post.author.profilePicture
+          .tile-icon
+            img.circle(src=`${post.author.profilePicture}`)
+        .tile-content
+          if post.author
+            .tile-title.author Posted by: #{post.author.name}
+            .tile-subtitle.date Published on: #{post.date}
+
       .post-body!= md.toHTML(post.content)
     .sidebar.column.col-3.col-md-4.col-sm-12
       h4 Other Posts

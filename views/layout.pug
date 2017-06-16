@@ -19,8 +19,19 @@ html
             h1 #{site_title}
           .user
             if user
-              p Signed in: #{user.email}
-                a.btn.btn-primary(href="/admin/logout") Logout
+              ul.menu.closed
+                li.menu-item.dropdown-link
+                  .tile.tile-centered
+                    .tile-icon
+                      img.circle(src=`${user.profilePicture}` style="width:30px")
+                    .tile-content #{user.first_name} #{user.last_name}
+                li.divider
+                li.menu-item
+                  a(href=`/admin/dashboard`) Dashboard
+                li.menu-item
+                  a(href=`/users/${user._id}`) My Profile
+                li.menu-item
+                  a(href="/admin/logout") Logout
             else
               a.btn.btn-default(href="/login") Login
         .nav-bar
@@ -39,7 +50,7 @@ html
                     li.tab-item
                       a(href="/admin") Admin
                     li.tab-item
-                      a(href=`/users/${user.id}`) User
+                      a(href=`/users/${user.id}`) Profile
       .main-container
         block feature
         .container.grid-1280.block-content
