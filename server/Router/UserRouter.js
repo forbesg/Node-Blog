@@ -2,6 +2,7 @@ const User = require('./models/UserModel');
 const bodyParser = require('body-parser');
 
 const checkAuth = function (req, res, next) {
+  console.log(req.user);
   if (!req.user) {
     req.flash('error', 'You have to be logged in to view users');
     return res.redirect('/login');

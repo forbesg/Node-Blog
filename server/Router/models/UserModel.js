@@ -24,6 +24,12 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  provider: {
+    type: String
+  },
+  profilePicture: {
+    type: String
+  },
   posts: Array
 });
 

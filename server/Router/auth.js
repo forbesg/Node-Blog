@@ -5,6 +5,20 @@ const googleConfig = require('../config/config').googleConfig;
 const User = require('./models/UserModel');
 
 
+
+passport.serializeUser(function(user, done) {
+  console.log('Serialize User', user);
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  console.log('deserialize', user);
+  User.findById(user._id, function(err, user) {
+    done(err, user);
+  });
+});
+
+
 /*****
   PASSPOSRT LOCAL STRATEGY
 *****/
@@ -15,6 +29,9 @@ passport.use(new LocalStrategy({
   function(email, password, done) {
     User.findOne({ email: email }, function(err, user) {
       if (err) { return done(err); }
+      if (user.provider) {
+        return done(null, false, { message: 'Email Registered with Social Sign-In' })
+      }
       if (!user) {
         console.log('Incorrect username.');
         return done(null, false, { message: 'Incorrect username.' });
@@ -33,22 +50,32 @@ passport.use(new LocalStrategy({
   PASSPORT GOOGLE STRATEGY
 *****/
 passport.use(new GoogleStrategy(googleConfig,
-  function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return cb(err, user);
+  function(accessToken, refreshToken, profile, done) {
+    User.findOne({ provider: 'google', email: profile.emails[0].value }).exec().then(user => {
+      if (!user) {
+        let newUser = {
+          first_name: profile.name.givenName,
+          last_name: profile.name.familyName,
+          email: profile.emails[0].value,
+          password: 'google',
+          provider: profile.provider,
+          profilePicture: profile.photos[0].value,
+          posts: []
+        };
+        user = new User(newUser);
+        user.save().then(user => {
+          done(null, user);
+        }).catch(err => {
+          done(err, false)
+        });
+      } else {
+        done(null, user);
+      }
+    }).catch(err => {
+      console.log(err);
+      done(err, false)
     });
   }
 ));
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
 
 module.exports = passport;

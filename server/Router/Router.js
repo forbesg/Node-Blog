@@ -80,15 +80,15 @@ module.exports = (app, passport) => {
   ****/
 
   .get('/login', (req, res) => {
+    if (req.user) {
+      return res.redirect('/admin/dashboard')
+    }
     let message = req.flash('error')[0];
     let title = 'Login';
     let params = {
       login: true,
       message
     };
-    if (req.user) {
-      params.user = req.user
-    }
     res.render('page', params);
   })
 

@@ -23,26 +23,42 @@ module.exports = (app, passport) => {
     /*****
     Login / Logout
     *****/
+
+    // Local
     .post('/admin', bodyParser.urlencoded({extended: false}), passport.authenticate('local', {
       successRedirect: '/admin/dashboard',
       failureRedirect: '/login',
       failureFlash: true
     }))
 
+    // Google
     .get('/auth/google', (req, res, next) => {
-      console.log('trying');
       next();
     }, passport.authenticate('google', {
-      scope: ['profile']
+      scope: ['profile', 'email']
     }))
 
     .get('/auth/google/callback', passport.authenticate('google', {
-      failureRedirect: '/'
-    }), (req, res) => {
-      console.log('Successfully Logged In with Google');
-      res.redirect('/admin/dashboard')
-    })
+      successRedirect: '/admin/dashboard',
+      failureRedirect: '/',
+      failureFlash: true
+    }))
 
+    // Facebook
+    .get('/auth/facebook', (req, res, next) => {
+      next();
+    }, passport.authenticate('facebook', {
+      scope: ['profile', 'email']
+    }))
+
+    .get('/auth/facebook/callback', passport.authenticate('facebook', {
+      successRedirect: '/admin/dashboard',
+      failureRedirect: '/',
+      failureFlash: true
+    }))
+
+
+    // Logout
     .get('/admin/logout', (req, res) => {
       req.logout();
       res.redirect('/login');
