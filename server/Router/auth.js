@@ -85,7 +85,6 @@ passport.use(new GoogleStrategy(config.google,
 *****/
 passport.use(new FacebookStrategy(config.facebook,
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
     User.findOne({ email: profile.emails[0].value }).exec().then(user => {
       // Check that email is not already registered
       if (user && user.provider !== 'facebook') {

@@ -164,6 +164,14 @@ i.icon {
   font-size: 1.6rem;
   min-height: 500px; }
 
+.admin .social-login a.btn.google {
+  background-color: #dd4b39;
+  border-color: #dd4b39; }
+
+.admin .social-login a.btn.facebook {
+  background-color: #3b5998;
+  border-color: #3b5998; }
+
 .admin .social-login a i.fa {
   margin-right: 10px; }
 
