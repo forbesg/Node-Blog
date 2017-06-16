@@ -164,6 +164,9 @@ i.icon {
   font-size: 1.6rem;
   min-height: 500px; }
 
+.admin .social-login a i.fa {
+  margin-right: 10px; }
+
 footer {
   background-color: #1d3c4b;
   color: #fff;
