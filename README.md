@@ -2,7 +2,9 @@
 
 ## TODO
 
-* Edit process - Still to complete update image
+* Add post ID to user.author.posts hwn post is added
+* Option to Update Account Details
+* Ability to delete user - should also delete all users posts and relating images
 
 > **Note To Self**
 
@@ -10,7 +12,7 @@
 
 #### Node Blog
 
-The application is built using Node JS, Express and Mongo DB so will require these to be installed locally. 
+The application is built using Node JS, Express and Mongo DB so will require these to be installed locally.
 
 ```bash
   git clone https://github.com/forbesg/Node-Blog.git Node-Blog && cd Node-Blog
@@ -18,6 +20,10 @@ The application is built using Node JS, Express and Mongo DB so will require the
 ```
 
 #### Requires server/config/config.js to be added
+
+Add your application to Google, Facebook & Twitter to obtain the keys/secret to include below.
+
+The callback URL will also need to be set up with these services.
 
 ```javascript
   module.exports = {
