@@ -56,6 +56,13 @@ a:focus {
   box-shadow: none;
   outline: none; }
 
+.main-container .highlights {
+  padding: 100px 0; }
+  .main-container .highlights .highlight-icon {
+    padding: 50px; }
+    .main-container .highlights .highlight-icon i.fa {
+      font-size: 10rem; }
+
 .feature {
   position: relative;
   background-position: center;

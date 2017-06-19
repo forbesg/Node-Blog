@@ -70,6 +70,15 @@ a:focus {
 }
 .main-container {
 
+  .highlights {
+    padding: 100px 0;
+    .highlight-icon {
+      padding: 50px;
+      i.fa {
+      font-size: 10rem;
+      }
+    }
+  }
 }
 .feature {
   position: relative;

@@ -27,14 +27,13 @@ passport.use(new LocalStrategy({
   function(email, password, done) {
     User.findOne({ email: email }, function(err, user) {
       if (err) { return done(err); }
-      if (user.provider) {
-        return done(null, false, { message: 'Email Registered with Social Sign-In' })
-      }
       if (!user) {
         console.log('Incorrect username.');
         return done(null, false, { message: 'Incorrect username.' });
       }
-
+      if (user && user.provider) {
+        return done(null, false, { message: 'Email Registered with Social Sign-In' })
+      }
       if (!user.isValidPassword(password)) {
         console.log('Incorrect password.');
         return done(null, false, { message: 'Incorrect password.' });
