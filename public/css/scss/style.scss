@@ -9,8 +9,24 @@ hr {
 header {
   background-color: #34728f;
   color: #fff;
-  .fixed-nav {
-    padding-bottom: 49px;
+  .nav-bar {
+    background-color: #90acb8;
+    transition: background-color 0.2s;
+    nav.flex  {
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+  }
+  &.fixed-nav {
+    padding-bottom: 44px;
+    .nav-bar {
+      background-color: rgba(144, 172, 184, 0.8);
+      box-shadow: 0 1px 2px #444;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 2;
+    }
   }
   .brand {
     padding: 30px 0;
@@ -47,22 +63,6 @@ header {
     }
   }
 }
-header .nav-bar {
-  background-color: #90acb8;
-  transition: background-color 0.2s;
-}
-header .nav-bar nav.flex {
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-header.fixed-nav .nav-bar {
-  background-color: rgba(144, 172, 184, 0.8);
-  box-shadow: 0 1px 2px #444;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 2;
-}
 header .nav-bar .tab-item:focus,
 a:focus {
   box-shadow: none;
@@ -71,12 +71,20 @@ a:focus {
 .main-container {
 
   .highlights {
-    padding: 100px 0;
+    background-color: #708090;
+    color: #fff;
+    .column {
+      margin: 30px 0;
+      padding: 30px 0;
+    }
     .highlight-icon {
       padding: 50px;
       i.fa {
       font-size: 10rem;
       }
+    }
+    .text-content {
+      padding: 0 30px;
     }
   }
 }
@@ -217,6 +225,13 @@ i.icon {
       &.btn.facebook {
         background-color: #3b5998;
         border-color: #3b5998;
+      }
+      &.btn.twitter {
+        background-color: #0084b4;
+        border-color: #0084b4;
+      }
+      &.btn:hover {
+        
       }
       i.fa {
         margin-right: 10px;

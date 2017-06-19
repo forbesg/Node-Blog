@@ -2,6 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook');
+const TwitterStrategy = require('passport-twitter').Strategy;
 const config = require('../config/config');
 const User = require('./models/UserModel');
 
@@ -97,6 +98,48 @@ passport.use(new FacebookStrategy(config.facebook,
           last_name: profile.name.familyName,
           email: profile.emails[0].value,
           password: 'facebook', // Not used as redirects social logins in local strategy
+          provider: profile.provider,
+          profilePicture: profile.photos[0].value,
+          posts: []
+        };
+
+        user = new User(newUser);
+        user.save().then(user => {
+          done(null, user);
+        }).catch(err => {
+          done(err, false)
+        });
+      }
+      // If User is found pass user through
+      else {
+        done(null, user);
+      }
+    }).catch(err => {
+      console.log(err);
+      done(err, false)
+    });
+  }
+));
+
+
+/*****
+  PASSPORT TWITTER STRATEGY
+*****/
+passport.use(new TwitterStrategy(config.twitter,
+  function(token, tokenSecret, profile, done) {
+    User.findOne({ email: `@${profile.username}` }).exec().then(user => {
+      // Check that email is not already registered
+      if (user && user.provider !== 'twitter') {
+        return done(null, false, {message: "Email is already registered using a different service."});
+      }
+
+      // If no user - create new user
+      if (!user) {
+        let newUser = {
+          first_name: profile.displayName.split(' ')[0],
+          last_name: profile.displayName.split(' ')[1] || "",
+          email: `@${profile.username}`,
+          password: 'twitter', // Not used as redirects social logins in local strategy
           provider: profile.provider,
           profilePicture: profile.photos[0].value,
           posts: []

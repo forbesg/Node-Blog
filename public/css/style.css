@@ -9,8 +9,21 @@ hr {
 header {
   background-color: #34728f;
   color: #fff; }
-  header .fixed-nav {
-    padding-bottom: 49px; }
+  header .nav-bar {
+    background-color: #90acb8;
+    transition: background-color 0.2s; }
+    header .nav-bar nav.flex {
+      justify-content: space-between;
+      flex-wrap: wrap; }
+  header.fixed-nav {
+    padding-bottom: 44px; }
+    header.fixed-nav .nav-bar {
+      background-color: rgba(144, 172, 184, 0.8);
+      box-shadow: 0 1px 2px #444;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 2; }
   header .brand {
     padding: 30px 0;
     text-align: center; }
@@ -35,33 +48,23 @@ header {
       header .user ul.menu .menu-item a:hover {
         color: #dadada; }
 
-header .nav-bar {
-  background-color: #90acb8;
-  transition: background-color 0.2s; }
-
-header .nav-bar nav.flex {
-  justify-content: space-between;
-  flex-wrap: wrap; }
-
-header.fixed-nav .nav-bar {
-  background-color: rgba(144, 172, 184, 0.8);
-  box-shadow: 0 1px 2px #444;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 2; }
-
 header .nav-bar .tab-item:focus,
 a:focus {
   box-shadow: none;
   outline: none; }
 
 .main-container .highlights {
-  padding: 100px 0; }
+  background-color: #708090;
+  color: #fff; }
+  .main-container .highlights .column {
+    margin: 30px 0;
+    padding: 30px 0; }
   .main-container .highlights .highlight-icon {
     padding: 50px; }
     .main-container .highlights .highlight-icon i.fa {
       font-size: 10rem; }
+  .main-container .highlights .text-content {
+    padding: 0 30px; }
 
 .feature {
   position: relative;
@@ -191,6 +194,10 @@ i.icon {
 .admin .social-login a.btn.facebook {
   background-color: #3b5998;
   border-color: #3b5998; }
+
+.admin .social-login a.btn.twitter {
+  background-color: #0084b4;
+  border-color: #0084b4; }
 
 .admin .social-login a i.fa {
   margin-right: 10px; }

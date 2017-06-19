@@ -32,9 +32,7 @@ module.exports = (app, passport) => {
     }))
 
     // Google
-    .get('/auth/google', (req, res, next) => {
-      next();
-    }, passport.authenticate('google', {
+    .get('/auth/google', passport.authenticate('google', {
       scope: ['profile', 'email']
     }))
 
@@ -52,6 +50,17 @@ module.exports = (app, passport) => {
       failureRedirect: '/login',
       failureFlash: true
     }))
+
+    // Twitter
+    .get('/auth/twitter', passport.authenticate('twitter'))
+
+    .get('/auth/twitter/callback', passport.authenticate('twitter', {
+      failureRedirect: '/login',
+      failureFlash: true
+    }), (req, res) => {
+      console.log('twitter');
+      res.redirect('/admin/dashboard')
+    })
 
 
     // Logout
