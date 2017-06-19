@@ -138,7 +138,7 @@ passport.use(new TwitterStrategy(config.twitter,
         let newUser = {
           first_name: profile.displayName.split(' ')[0],
           last_name: profile.displayName.split(' ')[1] || "",
-          email: `@${profile.username}`,
+          email: `@${profile.username}`, // Use twitter username rather than email
           password: 'twitter', // Not used as redirects social logins in local strategy
           provider: profile.provider,
           profilePicture: profile.photos[0].value,
