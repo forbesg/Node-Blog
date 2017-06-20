@@ -18,11 +18,7 @@ block content
       each user, index in users
         .tile.column.col-4.col-md-6.col-sm-12
           .tile-icon
-            .example-tile-icon
-              if user.profilePicture
-                img.round(src=`${user.profilePicture}`)
-              else
-                img.round(src=`http://i.pravatar.cc/40?img=${index + 1}`)
+            img.circle(src=`${user.profilePicture}`)
           .tile-content
             p.tile-title #{user.first_name} #{user.last_name}
             p.tile-subtitle #{user.email}

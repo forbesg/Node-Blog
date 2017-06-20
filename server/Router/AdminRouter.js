@@ -9,12 +9,23 @@ module.exports = (app, passport) => {
     Admin (protected Routes)
     *****/
 
-    // Check User is authenticated when accessin Admin routes
+    // Check if user is admin
+    const checkAdmin = (req, res, next) => {
+      // Skip check if user is logging out
+      if (req.path === '/admin/logout') return next();
+
+      if (req.user && !req.user.admin) {
+        return res.redirect('/');
+      }
+      next();
+    }
+
+    // Check User is authenticated when accessing Admin routes
     const checkAuth = function (req, res, next) {
       if (!req.user) return res.redirect('/login');
       next();
     }
-    app.all('/admin/*', checkAuth)
+    app.all('/admin/*', checkAuth, checkAdmin)
 
     app.get('/admin', (req, res) => {
       res.redirect('/admin/dashboard');
@@ -58,7 +69,6 @@ module.exports = (app, passport) => {
       failureRedirect: '/login',
       failureFlash: true
     }), (req, res) => {
-      console.log('twitter');
       res.redirect('/admin/dashboard')
     })
 

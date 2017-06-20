@@ -32,7 +32,7 @@ passport.use(new LocalStrategy({
         console.log('Incorrect username.');
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (user && user.provider) {
+      if (user && user.provider !== 'local') {
         return done(null, false, { message: 'Email Registered with Social Sign-In' })
       }
       if (!user.isValidPassword(password)) {

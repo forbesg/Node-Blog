@@ -2,7 +2,6 @@ const User = require('./models/UserModel');
 const bodyParser = require('body-parser');
 
 const checkAuth = function (req, res, next) {
-  console.log(req.user);
   if (!req.user) {
     req.flash('error', 'You have to be logged in to view users');
     return res.redirect('/login');
@@ -17,7 +16,10 @@ module.exports = (app, passport) => {
   Register New User
   ****/
   app.post('/register', bodyParser.urlencoded({extended: false}), (req, res, next) => {
-    let user = new User(req.body);
+    let newUser = req.body;
+    newUser.profilePicture = '/images/users/default/photo.png';
+    newUser.provider = 'local';
+    let user = new User(newUser);
     if (user) {
       user.save().then(user => {
         if (user) next();

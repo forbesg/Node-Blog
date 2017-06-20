@@ -97,8 +97,8 @@ module.exports = (app, passport) => {
     if (req.user) {
       return res.redirect('/admin/dashboard');
     }
-    let title = 'Login';
     let params = {
+      title: 'Register',
       register: true,
       message: req.flash('error')[0]
     };

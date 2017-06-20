@@ -231,7 +231,7 @@ i.icon {
         border-color: #0084b4;
       }
       &.btn:hover {
-        
+
       }
       i.fa {
         margin-right: 10px;
@@ -289,5 +289,13 @@ footer .copy {
   color: #fff;
 }
 .tab .tab-item a:focus, .tab .tab-item a:hover {
-    color: #48536f;
+  color: #48536f;
+}
+.tile {
+   .tile-icon {
+     img {
+      width: 50px;
+      height: 50px;
+    }
+  }
 }

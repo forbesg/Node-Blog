@@ -30,6 +30,11 @@ const UserSchema = mongoose.Schema({
   profilePicture: {
     type: String
   },
+  admin: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
   posts: Array
 });
 

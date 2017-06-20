@@ -23,11 +23,12 @@ html
                 li.menu-item.dropdown-link
                   .tile.tile-centered
                     .tile-icon
-                      img.circle(src=`${user.profilePicture}` style="width:30px")
+                      img.circle(src=`${user.profilePicture}` style="width:30px; height: 30px;")
                     .tile-content #{user.first_name} #{user.last_name}
                 li.divider
-                li.menu-item
-                  a(href=`/admin/dashboard`) Dashboard
+                if user.admin
+                  li.menu-item
+                    a(href=`/admin/dashboard`) Dashboard
                 li.menu-item
                   a(href=`/users/${user._id}`) My Profile
                 li.menu-item
@@ -47,8 +48,9 @@ html
                     a(href="/posts") Blog
                 if user
                   ul.tab.float-right
-                    li.tab-item
-                      a(href="/admin") Admin
+                    if user.admin
+                      li.tab-item
+                        a(href="/admin") Admin
                     li.tab-item
                       a(href=`/users/${user.id}`) Profile
       .main-container
