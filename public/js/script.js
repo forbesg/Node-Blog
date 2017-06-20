@@ -1,10 +1,12 @@
 (function() {
-  console.log('Script Loaded');
   const header = document.querySelector('.header');
   const navBar = document.querySelector('.nav-bar');
   const originalNavOffset = navBar.offsetTop;
   const clearButton = document.querySelector('.clear-button');
   const dropdownLink = document.querySelector('.dropdown-link');
+  const messageList = document.querySelector('.message-list');
+  const chatInput = document.querySelector('#chat-input');
+  const socket = io();
 
   // Set Fixed class to nav bar
   function handleScroll() {
@@ -33,6 +35,7 @@
         console.log('Save?');
     }
   }
+
   if (clearButton) {
     clearButton.addEventListener('click', function(e) {
       e.preventDefault();
@@ -46,4 +49,5 @@
       dropdownLink.parentNode.classList.toggle('closed');
     })
   }
+
 })();
