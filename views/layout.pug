@@ -46,13 +46,6 @@ html
                     a(href="/about") About
                   li.tab-item
                     a(href="/posts") Blog
-                if user
-                  ul.tab.float-right
-                    if user.admin
-                      li.tab-item
-                        a(href="/admin") Admin
-                    li.tab-item
-                      a(href=`/users/${user.id}`) Profile
       .main-container
         block feature
         .container.grid-1280.block-content
