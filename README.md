@@ -10,6 +10,8 @@
 
 > ***Using http://node-blog.192.168.0.101.nip.io:3000 to access from other local devices***
 
+> NIP.io - [http://nip.io/](http://nip.io/)
+
 #### Node Blog
 
 The application is built using Node JS, Express and Mongo DB so will require these to be installed locally.
