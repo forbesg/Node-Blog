@@ -11,7 +11,7 @@ block feature
 
 block content
   .columns
-    .main.post.column.col-9.col-md-8.col-sm-12
+    .main.post.column.col-9.col-md-12.col-sm-12
       if post.image
         .post-image
           img(src=`/images/posts/scaled_${post.image}`)
@@ -25,7 +25,10 @@ block content
             .tile-subtitle.date Published on: #{post.date}
 
       .post-body!= md.toHTML(post.content)
-    .sidebar.column.col-3.col-md-4.col-sm-12
+      .comments-container
+        h4 Comments
+        include partials/comments.pug
+    .sidebar.column.col-3.col-md-12.col-sm-12
       h4 Other Posts
       .cards.columns
         each post in posts

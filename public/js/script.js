@@ -4,13 +4,11 @@
   const originalNavOffset = navBar.offsetTop;
   const clearButton = document.querySelector('.clear-button');
   const dropdownLink = document.querySelector('.dropdown-link');
-  const messageList = document.querySelector('.message-list');
-  const chatInput = document.querySelector('#chat-input');
-  const socket = io();
 
   // Set Fixed class to nav bar
   function handleScroll() {
     if (pageYOffset >= originalNavOffset) {
+      console.log(pageYOffset,originalNavOffset);
       return header.classList.add('fixed-nav');
     }
     header.classList.remove('fixed-nav');

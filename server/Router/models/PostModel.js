@@ -15,7 +15,8 @@ const postSchema = mongoose.Schema({
     email: String,
     _id: String,
     profilePicture: String
-  }
+  },
+  comments: Array
 });
 
 

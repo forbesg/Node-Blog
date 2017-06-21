@@ -5,9 +5,10 @@ if user
     .chat-body
       .message-list
       hr
-      form(method="POST" id="chat-input" autocomplete="off")
+      form(id="chat-input" autocomplete="off")
         .form-group
           input#user(type="text" name="user" hidden value=`${user.first_name}`)
+          input#user(type="text" name="post" hidden value=`${post._id}`)
           input#message.form-input(type="text" name="chat" autocomplete="off")
         .form-group
           input(type="submit" value="Send").btn.btn-sm.chat-button

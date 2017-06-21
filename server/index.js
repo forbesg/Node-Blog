@@ -12,16 +12,7 @@ const port = process.env.PORT || 3000;
 const development = process.env.NODE_ENV === 'development' ? true : false;
 
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
-
-io.on('connection', (client) => {
-  console.log('User Connected');
-  client.on('message', message => {
-    console.log('message received', message);
-    io.emit('newMessage', message);
-  });
-  client.on('disconnect', () => {console.log('disconnected');})
-})
+require('./helpers/io.js')(server);
 
 app.use(helmet());
 app.use(session({
