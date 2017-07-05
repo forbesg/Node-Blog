@@ -37,13 +37,13 @@ The callback URL will also need to be set up with these services.
     facebook: {
       clientID: '********************',
       clientSecret: '********************',
-      callbackURL: "your-domain/auth/facebook/callback"
+      callbackURL: "your-domain/auth/facebook/callback",
       profileFields: ['displayName', 'email', 'name', 'photos']
     },
     twitter: {
       consumerKey: '********************',
       consumerSecret: '********************',
-      callbackURL: "http://192.168.0.100:3000/auth/twitter/callback"
+      callbackURL: "your-domain/auth/twitter/callback"
     }
   }
 ```
