@@ -11,7 +11,7 @@ if user
     .column.col-8.col-md-12
       form#comment-form
         .form-group
-          input#user(type="text" name="user" hidden value=`${user.first_name}`)
+          input#user(type="text" name="user" hidden value=`${user.first_name} ${user.last_name}`)
           input#post-id(type="text" name="postId" hidden value=`${post._id}`)
           textarea#message.form-input.comment(type="text" name="comment" autocomplete="off" rows="5")
         .form-group
