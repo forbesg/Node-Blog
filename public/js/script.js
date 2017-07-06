@@ -4,16 +4,38 @@
   const originalNavOffset = navBar.offsetTop;
   const clearButton = document.querySelector('.clear-button');
   const dropdownLink = document.querySelector('.dropdown-link');
+  const animate = document.querySelectorAll('.animate');
+  console.log(animate);
 
   // Set Fixed class to nav bar
-  function handleScroll() {
+  function handleFixedNav() {
     if (pageYOffset >= originalNavOffset) {
       return header.classList.add('fixed-nav');
     }
     header.classList.remove('fixed-nav');
   }
 
+  // Set animation Class on animate elements
+  function handleAnimation() {
+    let viewportHeight = window.innerHeight;
+    console.log(viewportHeight);
+    for (var i = 0; i < animate.length; i += 1) {
+      let elementOffset = animate[i].getBoundingClientRect().top;
+      if (elementOffset + 100 < viewportHeight) {
+        animate[i].classList.add('animate-in')
+      }
+    }
+  }
+
+  function handleScroll() {
+    handleFixedNav();
+    handleAnimation();
+  }
+
+
+
   window.addEventListener('scroll', handleScroll);
+
   if(navigator.userAgent.match(/Trident\/7\./)) { // if IE
     window.addEventListener("mousewheel", function (event) {
       // remove default behavior

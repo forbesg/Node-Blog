@@ -69,13 +69,29 @@ a:focus {
   outline: none;
 }
 .main-container {
-
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px) scale(0.2);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0px) scale(1);
+    }
+  }
   .highlights {
     background-color: #708090;
     color: #fff;
     .column {
       margin: 30px 0;
       padding: 30px 0;
+      &.animate {
+        opacity: 0;
+        &.animate-in {
+          opacity: 1;
+          animation: fadeUp 0.5s cubic-bezier(0.55, 0.06, 0.68, 0.19);
+        }
+      }
     }
     .highlight-icon {
       padding: 50px;

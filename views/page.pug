@@ -3,6 +3,51 @@ extends layout.pug
 block feature
   include partials/feature.pug
 
+block append stylesheets
+  if edit || add
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css")
+block append headscripts
+  if edit || add
+    script(src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js")
+block append scripts
+  if edit || add
+    script.
+      var simplemde = new SimpleMDE({
+        element: document.getElementById('text-area'),
+        spellChecker: true
+      });
+  if dashboard
+    script.
+      (function () {
+        function handleDeleteEvent (e) {
+          e.preventDefault();
+          let deleteModal = document.querySelector('.delete-modal'),
+              cancelButton = document.querySelector('.cancel-button'),
+              closeButton = document.querySelector('.close-button'),
+              deleteButton = document.querySelector('.delete-button');
+
+          cancelButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            deleteModal.classList.remove('active');
+          });
+          closeButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            deleteModal.classList.remove('active');
+          });
+
+          deleteButton.href = this.href;
+          deleteModal.classList.add('active');
+          console.log(this.href);
+        }
+
+        let deleteButtons = document.querySelectorAll('.delete');
+
+        for (let i = 0; i < deleteButtons.length; i += 1) {
+          deleteButtons[i].addEventListener('click', handleDeleteEvent, true)
+        }
+
+      })();
+
 block content
   .main
     if !admin && !login && !register && title

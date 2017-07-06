@@ -53,12 +53,25 @@ a:focus {
   box-shadow: none;
   outline: none; }
 
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.2); }
+  to {
+    opacity: 1;
+    transform: translateY(0px) scale(1); } }
+
 .main-container .highlights {
   background-color: #708090;
   color: #fff; }
   .main-container .highlights .column {
     margin: 30px 0;
     padding: 30px 0; }
+    .main-container .highlights .column.animate {
+      opacity: 0; }
+      .main-container .highlights .column.animate.animate-in {
+        opacity: 1;
+        animation: fadeUp 0.5s cubic-bezier(0.55, 0.06, 0.68, 0.19); }
   .main-container .highlights .highlight-icon {
     padding: 50px; }
     .main-container .highlights .highlight-icon i.fa {
