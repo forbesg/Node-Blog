@@ -40,35 +40,3 @@
       .modal-footer.center
         button.btn.btn-default.cancel-button.float-left Cancel
         a.btn.btn-primary.delete-button Delete
-
-append scripts
-  script.
-    (function () {
-      function handleDeleteEvent (e) {
-        e.preventDefault();
-        let deleteModal = document.querySelector('.delete-modal'),
-            cancelButton = document.querySelector('.cancel-button'),
-            closeButton = document.querySelector('.close-button'),
-            deleteButton = document.querySelector('.delete-button');
-
-        cancelButton.addEventListener('click', (e) => {
-          e.preventDefault();
-          deleteModal.classList.remove('active');
-        });
-        closeButton.addEventListener('click', (e) => {
-          e.preventDefault();
-          deleteModal.classList.remove('active');
-        });
-
-        deleteButton.href = this.href;
-        deleteModal.classList.add('active');
-        console.log(this.href);
-      }
-
-      let deleteButtons = document.querySelectorAll('.delete');
-
-      for (let i = 0; i < deleteButtons.length; i += 1) {
-        deleteButtons[i].addEventListener('click', handleDeleteEvent, true)
-      }
-
-    })();

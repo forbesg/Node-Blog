@@ -1,3 +1,7 @@
+append headscripts
+  script(src="/socket.io/socket.io.js")
+  script.
+    var socket = io();
 .message-list
   each comment in post.comments
     .comment-bubble

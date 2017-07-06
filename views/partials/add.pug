@@ -2,22 +2,17 @@
   .columns
     .form.column.col-9.centered.col-sm-12
       h4.text-center Add A New Post
-      form.form-horizontal(action="/admin/post/add" method="POST" enctype="multipart/form-data")
-        .form-group
-          .col-3
+      form.form(action="/admin/post/add" method="POST" enctype="multipart/form-data")
+        .columns
+          .form-group.column.col-6
             label.form-label(for="title") Post Title:
-          .col-9
             input.form-input(type="text" name="title" placeholder="Post Title" required)
-        .form-group
-          .col-3
+          .form-group.column.col-6
             label.form-label(for="date") Post Date:
-          .col-9
             input.form-input(type="date" name="date" placeholder="YYYY-MM-DD" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}")
-        .form-group
-          .col-3
+          .form-group.column.col-12
             label.form-label(for="content") Post Content:
-          .col-9
-            textarea.form-input(type="textarea" name="content" placeholder="Post Content" rows="6" required)
+            textarea#text-area.form-input(type="textarea" name="content" placeholder="Post Content" rows="6" required)
         .form-group
           .col-3
             label.form-label(for="image") Post Image:
