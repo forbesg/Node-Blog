@@ -8,7 +8,6 @@
   // Set Fixed class to nav bar
   function handleScroll() {
     if (pageYOffset >= originalNavOffset) {
-      console.log(pageYOffset,originalNavOffset);
       return header.classList.add('fixed-nav');
     }
     header.classList.remove('fixed-nav');

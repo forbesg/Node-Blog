@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const md = require('markdown').markdown;
 const Post = require('./models/PostModel');
+const request = require('request');
 
 
 module.exports = (app, passport) => {
@@ -48,6 +49,16 @@ module.exports = (app, passport) => {
       res.status(500).redirect('/posts');
     });
   })
+
+  // .get('/posts/blogger', (req, res) => {
+  //   request('https://www.googleapis.com/blogger/v3/blogs/9130771741256476266/posts?key=AIzaSyD237AD1Ity10xOxxhHDSmq1HN1CN_Fm5Y', (err, response, body) => {
+  //     console.log(response, body);
+  //     res.send(body)
+  //     res.render('blog', {
+  //       posts: JSON.parse(body).items
+  //     })
+  //   })
+  // })
 
   .get('/posts/:postSlug', (req, res) => {
     Post.findOne({ slug: req.params.postSlug }).exec().then(post => {

@@ -17,7 +17,7 @@
           .col-3
             label.form-label(for="content") Post Content:
           .col-9
-            textarea.form-input(type="textarea" name="content" placeholder="Post Content" rows="6" required)= post.content
+            textarea#simplemde.form-input(type="textarea" name="content" placeholder="Post Content" rows="6" required)= post.content
         if post.image
           .form-group
             .col-3
@@ -35,3 +35,8 @@
           .col-9
             a.btn.btn-default(href="/admin") Cancel
             button.btn.btn-primary.float-right(type="submit") Update
+block append scripts
+  link(rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css")
+  script(src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js")
+  script.
+    var simplemde = new SimpleMDE();
