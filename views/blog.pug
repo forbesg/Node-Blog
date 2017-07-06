@@ -6,18 +6,17 @@ block content
     if message
       .toast.toast-warning #{message}
         button.btn.btn-clear.float-right.clear-button
-
-  .posts.columns
-    each post in posts
-      .column.col-4.col-xs-12
-        .post.card
-          if post.image
-            .card-image
-              img.img-responsive(src="/images/posts/scaled_" + post.image)
-          .card-header
-            a(href=`/posts/${post.slug}`)
-              h4.card-title= post.title
-            span.card-subtitle= post.date
-          .card-body!= md.toHTML(post.summary)
-          .card-footer
-            a.btn(href=`/posts/${post.slug}`) View
+    .posts.columns
+      each post in posts
+        .column.col-4.col-xs-12
+          .post.card
+            if post.image
+              .card-image
+                img.img-responsive(src="/images/posts/scaled_" + post.image)
+            .card-header
+              a(href=`/posts/${post.slug}`)
+                h4.card-title= post.title
+              span.card-subtitle= post.date
+            .card-body!= md.toHTML(post.summary)
+            .card-footer
+              a.btn(href=`/posts/${post.slug}`) View

@@ -6,6 +6,11 @@ hr {
   border-bottom: 1px solid #dadada;
   margin: 30px 0; }
 
+header .nav-bar .tab-item:focus,
+a:focus {
+  box-shadow: none;
+  outline: none; }
+
 header {
   background-color: #34728f;
   color: #fff; }
@@ -48,10 +53,13 @@ header {
       header .user ul.menu .menu-item a:hover {
         color: #dadada; }
 
-header .nav-bar .tab-item:focus,
-a:focus {
-  box-shadow: none;
-  outline: none; }
+.main-container {
+  /****
+    Feature
+  ****/
+  /****
+    Highlights
+  ****/ }
 
 @keyframes fadeUp {
   from {
@@ -60,62 +68,58 @@ a:focus {
   to {
     opacity: 1;
     transform: translateY(0px) scale(1); } }
-
-.main-container .highlights {
-  background-color: #708090;
-  color: #fff; }
-  .main-container .highlights .column {
-    margin: 30px 0;
-    padding: 30px 0; }
-    .main-container .highlights .column.animate {
-      opacity: 0; }
-      .main-container .highlights .column.animate.animate-in {
-        opacity: 1;
-        animation: fadeUp 0.5s cubic-bezier(0.55, 0.06, 0.68, 0.19); }
-  .main-container .highlights .highlight-icon {
-    padding: 50px; }
-    .main-container .highlights .highlight-icon i.fa {
-      font-size: 10rem; }
-  .main-container .highlights .text-content {
-    padding: 0 30px; }
-
-.feature {
-  position: relative;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  height: 400px; }
-
-.feature .container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end; }
-
-.feature .feature-text {
-  position: relative;
-  background-color: rgba(0, 0, 0, 0.56);
-  padding: 20px;
-  color: #fff;
-  text-align: center; }
-
-.feature .feature-text img {
-  width: 50px; }
-
-.feature.post {
-  height: 300px; }
-
-.feature.post .grayscale-overlay {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(25, 28, 31, 0.9); }
-
-.feature.post .feature-text {
-  position: relative;
-  background-color: transparent; }
+  .main-container .feature {
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    display: flex;
+    height: 400px; }
+    .main-container .feature .container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end; }
+    .main-container .feature .feature-text {
+      position: relative;
+      background-color: rgba(0, 0, 0, 0.56);
+      padding: 20px;
+      color: #fff;
+      text-align: center; }
+      .main-container .feature .feature-text img {
+        width: 50px; }
+    .main-container .feature.post {
+      height: 300px; }
+      .main-container .feature.post .grayscale-overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(25, 28, 31, 0.9); }
+      .main-container .feature.post .feature-text {
+        position: relative;
+        background-color: transparent; }
+    @media (min-width: 601px) {
+      .main-container .feature {
+        background-size: cover;
+        background-attachment: fixed; } }
+  .main-container .highlights {
+    background-color: #708090;
+    color: #fff; }
+    .main-container .highlights .column {
+      margin: 30px 0;
+      padding: 30px 0; }
+      .main-container .highlights .column.animate {
+        opacity: 0; }
+        .main-container .highlights .column.animate.animate-in {
+          opacity: 1;
+          animation: fadeUp 0.5s cubic-bezier(0.55, 0.06, 0.68, 0.19); }
+    .main-container .highlights .highlight-icon {
+      padding: 50px; }
+      .main-container .highlights .highlight-icon i.fa {
+        font-size: 10rem; }
+    .main-container .highlights .text-content {
+      padding: 0 30px; }
 
 .container.block-content {
   padding-top: 30px;
@@ -137,34 +141,37 @@ a:focus {
   left: 50%;
   margin-left: -150px;
   animation: fadeInDown 0.5s; }
+  .toast .btn {
+    position: absolute;
+    top: 10px;
+    right: 10px; }
 
-.toast .btn {
-  position: absolute;
-  top: 10px;
-  right: 10px; }
-
-/* Blog Page */
+/****
+  Blog Page
+****/
 .blog {
   position: relative; }
+  .blog .card h2 {
+    color: #34728f;
+    font-size: 2rem;
+    font-weight: bold; }
+  .blog .card h4 {
+    color: #34728f;
+    font-size: 1.8rem; }
+  .blog .card a:hover h4 {
+    color: #07222e; }
+  .blog .card a:hover {
+    text-decoration: none; }
+  .blog .card .card-image img {
+    filter: grayscale(0.5);
+    transition: filter 0.5s;
+    width: 100%; }
+  .blog .card:hover .card-image img {
+    filter: grayscale(0); }
 
-.card h2 {
-  color: #34728f;
-  font-size: 2rem;
-  font-weight: bold; }
-
-.card h4 {
-  color: #34728f;
-  font-size: 1.8rem; }
-
-.card a h4 {
-  color: #34728f; }
-
-.card a:hover {
-  text-decoration: none; }
-
-.card a:hover h4 {
-  color: #07222e; }
-
+/****
+  Post Styles
+****/
 .post .post-details {
   font-size: small;
   padding-bottom: 30px;
@@ -172,21 +179,12 @@ a:focus {
 
 .post .post-image {
   margin: 1rem -1rem; }
+  .post .post-image img {
+    width: 100%; }
 
-.post .post-image img {
-  width: 100%; }
-
-i.icon {
-  cursor: pointer; }
-
-.card .card-image img {
-  filter: grayscale(0.5);
-  transition: filter 0.5s;
-  width: 100%; }
-
-.card:hover .card-image img {
-  filter: grayscale(0); }
-
+/****
+  Admin Syles
+****/
 .admin .overlay {
   position: fixed;
   top: 0;
@@ -254,66 +252,21 @@ Chat Animations
       font-weight: bold;
       margin-bottom: 10px; }
 
-.chat-container {
-  display: inline-block;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 250px;
-  max-height: 500px;
-  background-color: #90acb8;
-  overflow: hidden;
-  padding: 5px; }
-  .chat-container header {
-    margin-bottom: 5px; }
-    .chat-container header h4 {
-      margin: 0;
-      padding: 5px; }
-  .chat-container .message-list {
-    max-height: 300px;
-    overflow-Y: scroll; }
-    .chat-container .message-list::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-      background-color: #444; }
-    .chat-container .message-list::-webkit-scrollbar {
-      width: 4px;
-      background-color: #F5F5F5; }
-    .chat-container .message-list::-webkit-scrollbar-thumb {
-      background-color: #444;
-      border: 2px solid #ddd; }
-  .chat-container .chat-bubble {
-    background-color: ghostwhite;
-    border: 1px solid #dadada;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    width: 90%;
-    animation: fadeInLeft 0.5s; }
-    .chat-container .chat-bubble .chat-header {
-      background-color: #1d3c4b;
-      border-radius: 2px 2px 0 0;
-      color: #fff;
-      font-size: 10px;
-      margin: 2px;
-      padding: 3px; }
-    .chat-container .chat-bubble .chat-body {
-      text-indent: 10px;
-      padding: 5px; }
-
+/****
+  Footer Styles
+****/
 footer {
   background-color: #1d3c4b;
   color: #fff;
   padding-top: 30px; }
-
-footer .column {
-  font-size: 1.2rem; }
-
-footer .copy {
-  text-align: center; }
+  footer .column {
+    font-size: 1.2rem; }
+  footer .copy {
+    text-align: center; }
 
 @media (min-width: 601px) {
-  header .brand {
-    /*text-align: left;*/ }
   .feature {
+    background-size: cover;
     background-attachment: fixed; }
   .post .post-image {
     margin: 1rem auto; } }
