@@ -54,6 +54,14 @@ module.exports = (app, passport) => {
     })
   })
 
+  app.post('/users/:userId/admin', bodyParser.json(), (req, res) => {
+    User.update({_id: req.params.userId}, {$set: { admin: req.body.admin }}).then(data => {
+      console.log(data);
+      res.sendStatus(200);
+    }).catch(err => {
+      res.sendStatus(500);
+    })
+  })
 
   app.get('/users/:userId', (req, res) => {
     User.findOne({_id: req.params.userId}, (err, user) => {

@@ -1,4 +1,24 @@
 extends layout
+block append scripts
+  script.
+    var adminSwitch = document.querySelector('.admin-switch'),
+        userId = window.location.pathname.split('/').pop();
+    console.log(adminSwitch)
+    adminSwitch.addEventListener('change', handleChange);
+    function handleChange (e) {
+      console.log('changed', e.target.checked);
+      var params = {admin: e.target.checked};
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        console.log('changed')
+        if (status === 200 && readyState === 200) {
+          console.log(response)
+        }
+      }
+      xhr.open('POST', `/users/${userId}/admin`, true);
+      xhr.setRequestHeader("Content-type", "application/json");
+      xhr.send(JSON.stringify(params));
+    }
 block content
   if thisUser
     .user
@@ -9,11 +29,23 @@ block content
             img(src=`${thisUser.profilePicture}`)
         h1 #{thisUser.first_name} #{thisUser.last_name}
         p #{thisUser.email}
+        if user.admin
+          form.form
+            .form-group
+              label.form-switch
+                if thisUser.admin
+                  input(type="checkbox" checked).admin-switch
+                else if !thisUser.admin
+                  input(type="checkbox").admin-switch
+                i.form-icon
+                span Make Admin
       hr.col-6.col-sm-12.centered
       .col-6.col-sm-12.centered
         h6 View All Users
         a.btn.bt-default(href="/users") All Users
   if users
+    if user.admin
+      h2 You're an Admin
     .columns
       each user, index in users
         .tile.column.col-4.col-md-6.col-sm-12
