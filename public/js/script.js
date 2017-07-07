@@ -5,7 +5,6 @@
   const clearButton = document.querySelector('.clear-button');
   const dropdownLink = document.querySelector('.dropdown-link');
   const animate = document.querySelectorAll('.animate');
-  console.log(animate);
 
   // Set Fixed class to nav bar
   function handleFixedNav() {
@@ -18,7 +17,6 @@
   // Set animation Class on animate elements
   function handleAnimation() {
     let viewportHeight = window.innerHeight;
-    console.log(viewportHeight);
     for (var i = 0; i < animate.length; i += 1) {
       let elementOffset = animate[i].getBoundingClientRect().top;
       if (elementOffset + 100 < viewportHeight) {
