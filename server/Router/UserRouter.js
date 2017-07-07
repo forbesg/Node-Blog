@@ -7,6 +7,14 @@ const checkAuth = function (req, res, next) {
     return res.redirect('/login');
   }
   next();
+};
+
+// Send 401 Unauthorized if user not Admin
+const checkAdmin = function (req, res, next) {
+  if (!req.user.admin) {
+    res.sendStatus(401);
+  }
+  next();
 }
 
 module.exports = (app, passport) => {
@@ -54,9 +62,10 @@ module.exports = (app, passport) => {
     })
   })
 
-  app.post('/users/:userId/admin', bodyParser.json(), (req, res) => {
+
+  // POST Request to set user as admin
+  app.post('/users/:userId/admin', checkAdmin, bodyParser.json(), (req, res) => {
     User.update({_id: req.params.userId}, {$set: { admin: req.body.admin }}).then(data => {
-      console.log(data);
       res.sendStatus(200);
     }).catch(err => {
       res.sendStatus(500);
@@ -66,10 +75,14 @@ module.exports = (app, passport) => {
   app.get('/users/:userId', (req, res) => {
     User.findOne({_id: req.params.userId}, (err, user) => {
       if (user) {
-        return res.render('user', {
+        let params = {
           user: req.user,
           thisUser: user
-        })
+        };
+        if (user._id.toString() === req.user._id.toString()) {
+          params.currentUser = true;
+        }
+        return res.render('user', params);
       }
       res.redirect('/')
     })
