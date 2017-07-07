@@ -12,7 +12,8 @@ const checkAuth = function (req, res, next) {
 // Send 401 Unauthorized if user not Admin
 const checkAdmin = function (req, res, next) {
   if (!req.user.admin) {
-    res.sendStatus(401);
+    req.flash('message', 'You need to be an Admin to view all users');
+    return res.status(401).redirect(`/users/${req.user._id}`);
   }
   next();
 }
@@ -50,7 +51,7 @@ module.exports = (app, passport) => {
   /*****
   User Routes
   *****/
-  app.get('/users', (req, res) => {
+  app.get('/users', checkAdmin, (req, res) => {
     User.find({}, (err, users) => {
       if (users) {
         return res.render('user', {
@@ -73,11 +74,13 @@ module.exports = (app, passport) => {
   })
 
   app.get('/users/:userId', (req, res) => {
+    let message = req.flash('message')[0];
     User.findOne({_id: req.params.userId}, (err, user) => {
       if (user) {
         let params = {
           user: req.user,
-          thisUser: user
+          thisUser: user,
+          message
         };
         if (user._id.toString() === req.user._id.toString()) {
           params.currentUser = true;

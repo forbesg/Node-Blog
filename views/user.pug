@@ -23,6 +23,9 @@ block append scripts
 block content
   if thisUser
     .user
+      if message
+        .toast.toast-warning= message
+          .btn.btn-clear.clear-button
       .col-6.col-sm-12.centered
         h2 User Profile
         if thisUser.profilePicture
@@ -41,9 +44,10 @@ block content
                 i.form-icon
                 span Make Admin
       hr.col-6.col-sm-12.centered
-      .col-6.col-sm-12.centered
-        h6 View All Users
-        a.btn.bt-default(href="/users") All Users
+      if user.admin
+        .col-6.col-sm-12.centered
+          h6 View All Users
+          a.btn.bt-default(href="/users") All Users
   if users
     .users
       h2 Users
