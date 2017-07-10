@@ -155,6 +155,16 @@ header {
     }
   }
 }
+// Highlight columns visible if no JavaScript
+.no-js {
+  .highlights {
+    .column {
+      &.animate {
+        opacity: 1;
+      }
+    }
+  }
+}
 
 .container.block-content {
   padding-top: 30px;
@@ -322,15 +332,19 @@ Chat Animations
   margin-bottom: 30px;
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #444;
+    background-color: #ddd;
   }
   &::-webkit-scrollbar {
     width: 4px;
-    background-color: #F5F5F5;
+    background-color: #ddd;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #444;
-    border: 2px solid #ddd;
+    background-color: #ddd;
+    border: 2px solid #1D3C4B;
+  }
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(151, 151, 151, 0.3);
+    background-color: #fff;
   }
   .comment-bubble {
     margin: 5px 0;

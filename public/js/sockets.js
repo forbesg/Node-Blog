@@ -6,28 +6,29 @@
     Sockets
   *****/
   function Sockets() {
-    console.log('Sockets');
     const messageList = document.querySelector('.message-list');
     const commentForm = document.querySelector('#comment-form');
     const socket = io();
-    commentForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      let user = document.getElementById('user').value;
-      let postId = document.getElementById('post-id').value;
-      let messageElement = document.getElementById('message');
-      let comment = messageElement.value;
-      if (comment.length < 1) return;
-      if (user && comment && comment !== "") {
-        let newComment = {
-          user,
-          comment,
-          postId
+    if (commentForm) {
+      commentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let user = document.getElementById('user').value;
+        let postId = document.getElementById('post-id').value;
+        let messageElement = document.getElementById('message');
+        let comment = messageElement.value;
+        if (comment.length < 1) return;
+        if (user && comment && comment !== "") {
+          let newComment = {
+            user,
+            comment,
+            postId
+          }
+          socket.emit('comment', newComment);
         }
-        socket.emit('comment', newComment);
-      }
-      messageElement.value = "";
-      return false;
-    })
+        messageElement.value = "";
+        return false;
+      })
+    }
     socket.on('newComment', comment => {
       let div = document.createElement('div');
       div.classList.add('comment-bubble');

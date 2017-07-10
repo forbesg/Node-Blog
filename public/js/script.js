@@ -1,4 +1,5 @@
 (function() {
+  document.querySelector('.body').classList.remove('no-js');
   const header = document.querySelector('.header');
   const navBar = document.querySelector('.nav-bar');
   const originalNavOffset = navBar.offsetTop;
