@@ -18,7 +18,6 @@ header {
     background-color: #90acb8;
     transition: background-color 0.2s; }
     header .nav-bar nav.flex {
-      justify-content: space-between;
       flex-wrap: wrap; }
   header.fixed-nav {
     padding-bottom: 44px; }
