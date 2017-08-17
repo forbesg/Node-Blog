@@ -246,6 +246,23 @@ header {
     }
   }
 }
+.cards {
+  .card {
+    .card-body {
+      h2 {
+        font-size: 2rem;
+      },
+      h4 {
+        font-size: 1.6rem;
+      }
+    }
+    .card-image {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
 
 /****
   Admin Syles

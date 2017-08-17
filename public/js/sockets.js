@@ -30,6 +30,9 @@
       })
     }
     socket.on('newComment', comment => {
+      if (!comment.user || !comment.postId || !comment.comment) {
+        return;
+      }
       let div = document.createElement('div');
       div.classList.add('comment-bubble');
       let header = document.createElement('div');

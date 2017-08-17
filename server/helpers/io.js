@@ -11,6 +11,9 @@ module.exports = (server) => {
     });
     client.on('comment', comment => {
       console.log('comment received', comment);
+      if (!comment.user || !comment.postId || !comment.comment) {
+        return;
+      }
       Post.findByIdAndUpdate(comment.postId, {
         $push:{
           "comments": comment

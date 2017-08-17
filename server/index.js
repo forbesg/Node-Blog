@@ -8,12 +8,14 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const sass = require('node-sass-middleware');
 const path = require('path');
+const compression = require('compression');
 const port = process.env.PORT || 3000;
 const development = process.env.NODE_ENV === 'development' ? true : false;
 
 const server = require('http').createServer(app);
 require('./helpers/io.js')(server);
 
+app.use(compression());
 app.use(helmet());
 app.use(session({
   secret: 'yosemite sam',

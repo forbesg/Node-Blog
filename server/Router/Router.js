@@ -37,6 +37,7 @@ module.exports = (app, passport) => {
     let title = 'Blog';
     let message = req.flash('message')[0];
     Post.find({}).limit(6).sort({date: -1}).exec().then(posts => {
+      console.log(posts);
       res.render('blog', {
         title,
         posts,
