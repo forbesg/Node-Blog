@@ -1,3 +1,5 @@
+-
+  let date = new Date()
 footer
   .container.grid-1280
     .columns
@@ -22,4 +24,4 @@ footer
         p Some Text
   .copy
     .container.grid-1280
-      p FNBG &copy; 2017
+      p FNBG &copy; #{date.getFullYear()}
