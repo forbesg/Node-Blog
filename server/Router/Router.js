@@ -25,6 +25,7 @@ module.exports = (app, passport) => {
     }
     res.render('page', {
       title: 'About',
+      description: 'A little description about the About Spectre page',
       feature: {
         image: 'https://unsplash.it/1200/800/'
       },

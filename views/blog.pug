@@ -1,5 +1,8 @@
 extends layout.pug
 
+block meta
+  meta(name="description" content="This is the Spectre Blog. It has lots os posts and stuff like that.")
+
 block content
   .blog
     h1 #{title}
@@ -12,7 +15,7 @@ block content
           .post.card
             if post.image
               .card-image
-                img.img-responsive(src="/images/posts/scaled_" + post.image)
+                img.img-responsive(src="/images/posts/scaled_" + post.image alt="" + post.title + "")
             .card-header
               a(href=`/posts/${post.slug}`)
                 h4.card-title= post.title

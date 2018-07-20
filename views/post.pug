@@ -1,12 +1,15 @@
 extends layout.pug
 
+block meta
+  meta(name="description" content="" + post.description + "")
+
 block feature
   if post.image
     .feature.post(style='background-image: url(/images/posts/scaled_' + post.image +' ); position: relative;')
       .grayscale-overlay
       .container.grid-960
         .feature-text
-          img(src="/logo.svg")
+          img(src="/logo.svg" alt="Spectre Site")
           h1 #{post.title}
 
 block content
@@ -14,7 +17,7 @@ block content
     .main.post.column.col-9.col-md-12.col-sm-12
       if post.image
         .post-image
-          img(src=`/images/posts/scaled_${post.image}`)
+          img(src=`/images/posts/scaled_${post.image}` alt=`${post.title}`)
       .post-details.tile
         if post.author.profilePicture
           .tile-icon
@@ -39,7 +42,7 @@ block content
                 .card-subtitle= post.date
               if post.image
                 .card-image
-                  img.img-responsive(src=`/images/posts/thumbs/${post.image}`)
+                  img.img-responsive(src=`/images/posts/thumbs/${post.image}` alt=`${post.title}`)
               .card-body!= md.toHTML(post.summary)
               .card-footer
                 a.btn.btn-default(href=`/posts/${post.slug}`) View Post

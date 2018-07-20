@@ -4,6 +4,8 @@ html(lang="en-gb")
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible" content="IE=edge")
     meta(name="viewport" content="width=device-width, initial-scale=1")
+    block meta
+      meta(name="description" content="A Meta Description is important because it allows search enginges and their users and briefly see what the page is about")
     if title
       title My Site | #{title}
     else
@@ -20,7 +22,7 @@ html(lang="en-gb")
       header.header
         .container.grid-1280
           .brand.col-sm-12.text-center
-            img(src="/logo.svg").logo
+            img(src="/logo.svg" alt="Spectre Site").logo
             h1 #{site_title}
           .user
             if user
@@ -44,7 +46,7 @@ html(lang="en-gb")
           .container.grid-1280
             .col-12
               nav.flex
-                img(src="/logo.svg" style="width:40px;height:40px;padding:5px;")
+                img(src="/logo.svg" alt="Spectre Site" style="width:40px;height:40px;padding:5px;")
                 ul.tab
                   li.tab-item
                     a(href="/") Home
